@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Discover - The Food Mania</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#ebf1ff",
+                        "surface-variant": "#dce2f3",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#596373",
+                        "secondary-container": "#d6e0f3",
+                        "charcoal-muted": "#374151",
+                        "surface-container-high": "#e2e8f8",
+                        "surface-dim": "#d3daea",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2a313d",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container": "#e7eefe",
+                        "tertiary-fixed": "#ffdad8",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#613b00",
+                        "surface": "#f9f9ff",
+                        "on-tertiary-container": "#831a22",
+                        "on-background": "#151c27",
+                        "surface-glass": "rgba(255, 255, 255, 0.8)",
+                        "on-secondary-fixed-variant": "#3d4756",
+                        "tertiary": "#a83639",
+                        "secondary-fixed": "#d9e3f6",
+                        "surface-container-highest": "#dce2f3",
+                        "on-surface": "#151c27",
+                        "primary-container": "#f59e0b",
+                        "primary-fixed-dim": "#ffb95f",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#ffddb8",
+                        "background": "#f9f9ff",
+                        "on-error-container": "#93000a",
+                        "outline": "#867461",
+                        "on-primary-fixed-variant": "#653e00",
+                        "primary": "#855300",
+                        "on-tertiary-fixed-variant": "#881d24",
+                        "inverse-primary": "#ffb95f",
+                        "surface-tint": "#855300",
+                        "on-tertiary-fixed": "#410006",
+                        "tertiary-fixed-dim": "#ffb3b0",
+                        "secondary": "#555f6f",
+                        "surface-container-low": "#f0f3ff",
+                        "appetite-orange-light": "#FEF3C7",
+                        "on-surface-variant": "#534434",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#ff9290",
+                        "on-secondary-fixed": "#121c2a",
+                        "outline-variant": "#d8c3ad",
+                        "secondary-fixed-dim": "#bdc7d9",
+                        "on-primary-fixed": "#2a1700"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "margin-desktop": "2.5rem",
+                        "stack-md": "1rem",
+                        "gutter": "1.5rem",
+                        "margin-mobile": "1rem",
+                        "container-max": "1280px",
+                        "stack-lg": "2rem"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .bento-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(133, 83, 0, 0.15);
+        }
+        .bento-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Custom scrollbar for sidebar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #dce2f3;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bdc7d9;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface-glass dark:bg-inverse-surface/80 backdrop-blur-xl bg-surface-glass/80 shadow-sm sticky top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto hidden md:flex">
+<!-- Logo -->
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed-dim tracking-tight">The Food Mania</span>
+<!-- Search Bar (on_left) -->
+<div class="relative ml-8 w-64 hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-md focus:border-primary focus:ring-1 focus:ring-primary transition-colors outline-none" placeholder="Search dishes, restaurants..." type="text" value="Pasta"/>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex items-center gap-8">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md scale-95 transition-transform duration-150" href="#">Discover</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary transition-colors hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 transition-all duration-200 px-3 py-1 rounded-md font-label-md text-label-md" href="#">Trending</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary transition-colors hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 transition-all duration-200 px-3 py-1 rounded-md font-label-md text-label-md" href="#">Orders</a>
+</nav>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<button class="p-2 text-primary dark:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 rounded-full transition-all duration-200 scale-95 active:scale-90">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="p-2 text-primary dark:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 rounded-full transition-all duration-200 scale-95 active:scale-90">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border-2 border-surface cursor-pointer scale-95 active:scale-90 transition-transform duration-150">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A close up studio portrait of a young professional woman smiling warmly. High quality, soft lighting, modern corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmB502K4T7UpkYqEFCVZGSfSbNi7qgieBqCGwNlzLm2Hm5BisI2VyOKFMgf95As7eam7ana3_V8ZNG0aWof4pT6gGIa_Ewhi4-nqYF4qWfLqn0XxxMLzTpx0gLGv4CDwwkTK3L7Kw2UZ325Osbpmexmkd96_fLaQvPAioRMyA3_mPbG0MexXXF8lsyy_KljJdkbE_lpby-pNrPA_ECSiujJTBW5aUsfKv2WOu6RCL6cRqvJA92-9drrEg1aOBAr0ImojadCxl15win"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-stack-lg flex flex-col md:flex-row gap-gutter">
+<!-- Filter Sidebar -->
+<aside class="w-full md:w-64 flex-shrink-0 mb-8 md:mb-0">
+<div class="sticky top-[100px] bg-surface-container-lowest rounded-xl border border-surface-variant shadow-[0_10px_25px_-5px_rgba(31,41,55,0.05)] p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Filters</h2>
+<button class="text-primary font-label-sm text-label-sm hover:underline">Reset</button>
+</div>
+<!-- Categories -->
+<div class="mb-6">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-3 uppercase tracking-wider">Categories</h3>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">Pasta (124)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">Burgers (89)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">Sushi (42)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">Salads (156)</span>
+</label>
+</div>
+</div>
+<div class="h-px bg-surface-variant my-6 w-full"></div>
+<!-- Price Range -->
+<div class="mb-6">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-3 uppercase tracking-wider">Price Range</h3>
+<div class="flex gap-2">
+<button class="flex-1 py-2 rounded-full border border-primary bg-primary/10 text-primary font-label-sm text-label-sm transition-colors">$</button>
+<button class="flex-1 py-2 rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary font-label-sm text-label-sm transition-colors">$$</button>
+<button class="flex-1 py-2 rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary font-label-sm text-label-sm transition-colors">$$$</button>
+</div>
+</div>
+<div class="h-px bg-surface-variant my-6 w-full"></div>
+<!-- Rating -->
+<div class="mb-6">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-3 uppercase tracking-wider">Rating</h3>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 border-outline-variant text-primary focus:ring-primary" name="rating" type="radio"/>
+<div class="flex items-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-surface-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-2 font-body-md text-body-md text-on-surface">&amp; Up</span>
+</div>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 border-outline-variant text-primary focus:ring-primary" name="rating" type="radio"/>
+<div class="flex items-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-surface-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-surface-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-2 font-body-md text-body-md text-on-surface">&amp; Up</span>
+</div>
+</label>
+</div>
+</div>
+<div class="h-px bg-surface-variant my-6 w-full"></div>
+<!-- Delivery Time -->
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-3 uppercase tracking-wider">Delivery Time</h3>
+<input class="w-full accent-primary" max="60" min="15" type="range" value="30"/>
+<div class="flex justify-between mt-2 font-label-sm text-label-sm text-on-surface-variant">
+<span>15m</span>
+<span class="text-primary font-bold">Under 30m</span>
+<span>60m+</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Search Results Grid -->
+<div class="flex-grow flex flex-col gap-stack-lg w-full">
+<!-- Active Search Summary -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface">Discovering <span class="text-primary">Pasta</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">124 premium culinary experiences found.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Sort by:</span>
+<select class="bg-surface border-none text-primary font-label-md text-label-md focus:ring-0 cursor-pointer">
+<option>Recommended</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Rating</option>
+</select>
+</div>
+</div>
+<!-- Bento Grid Results -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 (Spans 2 columns on lg) -->
+<div class="bg-surface-container-lowest rounded-[1rem] shadow-[0_10px_25px_-5px_rgba(31,41,55,0.05)] border border-surface-variant overflow-hidden bento-hover lg:col-span-2 group cursor-pointer flex flex-col sm:flex-row h-full">
+<div class="relative w-full sm:w-1/2 h-48 sm:h-auto overflow-hidden">
+<img alt="Truffle Pasta" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A top-down view of a high-end, creamy truffle pasta served in a shallow, rustic ceramic bowl. The lighting is moody and directional, highlighting the textures of the grated parmesan and fresh parsley garnish. A subtle glow emphasizes the culinary sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9_Bjx4YHpN74lvJRu4EcowDShyC11o6M5E-1zBuSqJmfneoBR0MQ-3D98xOrTMHjWfzLq6BNtxoPTjeE2R9bU0AGR7B7XBuN77DgWP2p_9sFLiIFtxyn_r7MtXDaMpoYpENwJjmW73VqsLuV_xLxWDx1QDl854A_rFOtbLAiynTPOwUGhzqhjuZWh-QsnNC867He9awO6Orqj0TTrWM3zBtYrPHhbLi2qdqaUXEKZa_YbzIBO62NTsBqDhT465_54s_B0L612acz_"/>
+<div class="absolute top-4 left-4 bg-primary-container/90 backdrop-blur-sm text-on-primary-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">local_fire_department</span> Trending
+                        </div>
+</div>
+<div class="p-6 flex flex-col justify-between w-full sm:w-1/2">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface line-clamp-2">Artisanal Truffle Carbonara</h3>
+<span class="font-label-md text-label-md text-primary-container flex items-center gap-1 bg-surface-container-high px-2 py-1 rounded-lg"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>4.9</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">Hand-rolled spaghetti alla chitarra bathed in a rich, aged pecorino cream, topped with shaved black summer truffles.</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-2 py-1 bg-surface-container rounded-full font-label-sm text-label-sm text-on-surface-variant">Italian</span>
+<span class="px-2 py-1 bg-surface-container rounded-full font-label-sm text-label-sm text-on-surface-variant">Premium</span>
+</div>
+</div>
+<div class="flex justify-between items-center mt-auto">
+<div class="flex flex-col">
+<span class="font-headline-lg text-headline-lg text-primary">$28.00</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 25-35 min</span>
+</div>
+<button class="bg-charcoal-muted text-on-secondary px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-on-surface transition-colors">Add</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-[1rem] shadow-[0_10px_25px_-5px_rgba(31,41,55,0.05)] border border-surface-variant overflow-hidden bento-hover group cursor-pointer flex flex-col">
+<div class="relative w-full h-48 overflow-hidden rounded-t-[1.5rem]">
+<img alt="Spicy Arrabiata" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up shot of vibrant, red spicy arrabiata pasta on a clean white plate. The lighting is bright and clean, reflecting off the glossy tomato sauce. Steam is subtly visible, conveying freshness and heat in a modern dining setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1z5502dlv5rseYtGWWOk6oMu83heVKKJR5LgGejs0rWyZCEp-2IbXJt2kWHd6vs_DJ8mkTBdEXdbKCOLge3mxpSq5ZFIQvyTVwElsauaDVR3OPXXsPlUIFAD6vSglLqIvVMgNxKS6w9flQJCwwgfMTxfeoctnNuzegofu8lWPpxSRiGcgfNF1lXoPoYIWyA3hgJsnyl3t8Nxme2PgOmmEyXVOPJx468w_qX45u5rEJrMXnARvyoJFs_oyyVSTznsnVkZvCD5NwynV"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface line-clamp-1">Spicy Arrabiata</h3>
+<span class="font-label-md text-label-md text-primary-container flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>4.7</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">Classic Roman dish with fiery tomato sauce, garlic, and fresh basil over penne.</p>
+<div class="flex justify-between items-center mt-auto pt-4 border-t border-surface-variant">
+<span class="font-headline-md text-headline-md text-primary">$18.50</span>
+<button class="bg-surface-container text-primary p-2 rounded-lg hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-[1rem] shadow-[0_10px_25px_-5px_rgba(31,41,55,0.05)] border border-surface-variant overflow-hidden bento-hover group cursor-pointer flex flex-col">
+<div class="relative w-full h-48 overflow-hidden rounded-t-[1.5rem]">
+<img alt="Pesto Genovese" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautifully plated dish of green pesto genovese pasta, garnished with toasted pine nuts and fresh basil leaves. The lighting is soft and natural, emphasizing the vibrant green color of the sauce against a neutral, elegant background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtcHHq29ZiqFpE4W6lbA4Zae5ucFD98g_wiqjnMiyWs2iPPissuRxMcRJzN5cLDXJilcyn0eju-vINk33i_dSpe7fCMwyjBdx9ooKjaMbx81FnKJ1y2ReZMD9XQlMmWI-2aKky0sR2YTx1OwP0ceAO9lSZb0xyufnI2buo82GIompBj9VegvY4Zp5OdiDmQu751y1gXnwg6O92hVU1KmQsVbrNSkEOFUzR1gYlqhZiQ1F_qGcyt8ymrWbu9YmUBFYroIdVRdexfybp"/>
+<div class="absolute top-4 left-4 bg-tertiary/10 backdrop-blur-sm text-tertiary px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 border border-tertiary/20">
+                            Vegan Friendly
+                        </div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface line-clamp-1">Pesto Genovese</h3>
+<span class="font-label-md text-label-md text-primary-container flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>4.8</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">Fresh basil, pine nuts, garlic, and extra virgin olive oil blended over linguine.</p>
+<div class="flex justify-between items-center mt-auto pt-4 border-t border-surface-variant">
+<span class="font-headline-md text-headline-md text-primary">$21.00</span>
+<button class="bg-surface-container text-primary p-2 rounded-lg hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-[1rem] shadow-[0_10px_25px_-5px_rgba(31,41,55,0.05)] border border-surface-variant overflow-hidden bento-hover group cursor-pointer flex flex-col">
+<div class="relative w-full h-48 overflow-hidden rounded-t-[1.5rem]">
+<img alt="Seafood Linguine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A luxurious seafood linguine featuring plump mussels, shrimp, and calamari in a light white wine sauce. The dish is presented in a deep, matte black bowl, creating a striking contrast with the food under bright, focused lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjipMNGEMENknFFI0k9F7iIuESba2mFCqFjzaBWTk1wgNVCOJMTG_e84M8OTABMoz_JyC2timBRZ5cMm7A84IWydpRr40N_40OXkpK52vLvCc5pPwtsb4AkWYGC5HvsDNDwi6ZA6DyL1SBHq0imUL6z7ol2col2eOpIaC0xnyrvxp-S5aZCZTUc1fBqGQKjTsqCN-bWqtukzNIoDNl1RpY7Jg7ErRNnydGxHoRgCq4PnqJAGQlthT6jhErmHzUeDG9CCR4I7GN1wy8"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface line-clamp-1">Frutti di Mare</h3>
+<span class="font-label-md text-label-md text-primary-container flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>4.6</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">A medley of fresh mussels, clams, shrimp, and calamari in a light white wine sauce.</p>
+<div class="flex justify-between items-center mt-auto pt-4 border-t border-surface-variant">
+<span class="font-headline-md text-headline-md text-primary">$32.00</span>
+<button class="bg-surface-container text-primary p-2 rounded-lg hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container-lowest rounded-[1rem] shadow-[0_10px_25px_-5px_rgba(31,41,55,0.05)] border border-surface-variant overflow-hidden bento-hover group cursor-pointer flex flex-col">
+<div class="relative w-full h-48 overflow-hidden rounded-t-[1.5rem]">
+<img alt="Classic Lasagna" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A cross-section view of a classic, multi-layered beef lasagna with bubbling melted cheese on top. It sits on a white rectangular plate. The warm, inviting lighting highlights the rich layers of ragu and béchamel sauce." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1TBgYM3JIqX6fUyWz25_d5gjOAHbQvosCJdZPLuB-_0DmwOdM9tlXZgtjH9V9YJ4j9i72Kefq0iipSxgpGPtTHzuh_wbf1Rpn1yYvpVBSw0iyX6PMkJWlhRCN4ug6X_jVut9nsxv9WLyH3wonIpyiB0m9GWQBe3yB4kk7QisF815UqWgEw5NYBZE4E3XXsdU77O3Te0NIjtqhVfqZp6Qmr7Th9qrOszBqBLv6VrR2-IelqX7Rrbjz2S0ddFxtpWBA1hR4LsWuNOY7"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface line-clamp-1">Nonna's Lasagna</h3>
+<span class="font-label-md text-label-md text-primary-container flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>4.9</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">Layers of fresh pasta, slow-cooked beef ragu, creamy béchamel, and parmesan.</p>
+<div class="flex justify-between items-center mt-auto pt-4 border-t border-surface-variant">
+<span class="font-headline-md text-headline-md text-primary">$24.00</span>
+<button class="bg-surface-container text-primary p-2 rounded-lg hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="flex justify-center mt-8">
+<button class="bg-transparent text-primary border-2 border-primary px-8 py-3 rounded-lg font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-all duration-300">Load More Experiences</button>
+</div>
+<!-- Empty State Example (Hidden by default, structure provided as requested) -->
+<div class="hidden flex-col items-center justify-center py-16 text-center">
+<div class="w-32 h-32 bg-surface-container rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-6xl text-outline-variant">search_off</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">No culinary matches found</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto mb-8">We couldn't find any dishes matching your current filters. Try adjusting your preferences or exploring our trending items.</p>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-lg font-label-md text-label-md shadow-md hover:scale-95 transition-transform">Clear All Filters</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-surface-glass dark:bg-inverse-surface/90 backdrop-blur-md bg-surface-glass/90 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] docked full-width bottom-0 rounded-t-xl fixed bottom-0 left-0 w-full z-50 md:hidden flex justify-around items-center px-4 py-3 pb-safe">
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high transition-colors scale-110 active:scale-95 transition-all duration-200 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-primary-fixed rounded-full px-4 py-1 hover:bg-surface-container-high transition-colors scale-110 active:scale-95 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high transition-colors scale-110 active:scale-95 transition-all duration-200 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high transition-colors scale-110 active:scale-95 transition-all duration-200 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Profile</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="bg-secondary dark:bg-inverse-surface w-full py-16 px-margin-desktop mt-stack-lg border-t border-outline-variant/20 full-width">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+<div class="max-w-sm">
+<span class="font-headline-md text-headline-md font-black text-primary-fixed tracking-tight block mb-4">The Food Mania</span>
+<p class="text-on-secondary dark:text-inverse-on-surface font-body-md text-body-md opacity-80">Epicurean Modernity delivered to your doorstep. Experience the pinnacle of culinary convenience without compromising on quality.</p>
+</div>
+<div class="flex flex-wrap gap-x-12 gap-y-8">
+<nav class="flex flex-col gap-3">
+<h4 class="text-primary-fixed font-bold font-label-md text-label-md uppercase tracking-wider mb-2">Company</h4>
+<a class="text-secondary-fixed-dim hover:text-on-secondary transition-colors font-body-md text-body-md hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300 hover:opacity-80" href="#">About Us</a>
+<a class="text-secondary-fixed-dim hover:text-on-secondary transition-colors font-body-md text-body-md hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300 hover:opacity-80" href="#">Sustainability</a>
+<a class="text-secondary-fixed-dim hover:text-on-secondary transition-colors font-body-md text-body-md hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300 hover:opacity-80" href="#">Partner with Us</a>
+</nav>
+<nav class="flex flex-col gap-3">
+<h4 class="text-primary-fixed font-bold font-label-md text-label-md uppercase tracking-wider mb-2">Legal</h4>
+<a class="text-secondary-fixed-dim hover:text-on-secondary transition-colors font-body-md text-body-md hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300 hover:opacity-80" href="#">Terms of Service</a>
+<a class="text-secondary-fixed-dim hover:text-on-secondary transition-colors font-body-md text-body-md hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300 hover:opacity-80" href="#">Privacy Policy</a>
+</nav>
+</div>
+</div>
+<div class="max-w-container-max mx-auto mt-12 pt-8 border-t border-outline-variant/10 text-center md:text-left">
+<p class="text-secondary-fixed-dim font-body-md text-body-md">© 2024 The Food Mania. Epicurean Modernity.</p>
+</div>
+</footer>
+</body></html>

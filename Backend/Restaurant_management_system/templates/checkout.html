@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout - The Food Mania</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Montserrat:wght@600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#ebf1ff",
+                    "surface-variant": "#dce2f3",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#596373",
+                    "secondary-container": "#d6e0f3",
+                    "charcoal-muted": "#374151",
+                    "surface-container-high": "#e2e8f8",
+                    "surface-dim": "#d3daea",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2a313d",
+                    "surface-bright": "#f9f9ff",
+                    "surface-container": "#e7eefe",
+                    "tertiary-fixed": "#ffdad8",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#613b00",
+                    "surface": "#f9f9ff",
+                    "on-tertiary-container": "#831a22",
+                    "on-background": "#151c27",
+                    "surface-glass": "rgba(255, 255, 255, 0.8)",
+                    "on-secondary-fixed-variant": "#3d4756",
+                    "tertiary": "#a83639",
+                    "secondary-fixed": "#d9e3f6",
+                    "surface-container-highest": "#dce2f3",
+                    "on-surface": "#151c27",
+                    "primary-container": "#f59e0b",
+                    "primary-fixed-dim": "#ffb95f",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#ffddb8",
+                    "background": "#f9f9ff",
+                    "on-error-container": "#93000a",
+                    "outline": "#867461",
+                    "on-primary-fixed-variant": "#653e00",
+                    "primary": "#855300",
+                    "on-tertiary-fixed-variant": "#881d24",
+                    "inverse-primary": "#ffb95f",
+                    "surface-tint": "#855300",
+                    "on-tertiary-fixed": "#410006",
+                    "tertiary-fixed-dim": "#ffb3b0",
+                    "secondary": "#555f6f",
+                    "surface-container-low": "#f0f3ff",
+                    "appetite-orange-light": "#FEF3C7",
+                    "on-surface-variant": "#534434",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#ff9290",
+                    "on-secondary-fixed": "#121c2a",
+                    "outline-variant": "#d8c3ad",
+                    "secondary-fixed-dim": "#bdc7d9",
+                    "on-primary-fixed": "#2a1700"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px",
+                    "2xl": "1.5rem"
+            },
+            "spacing": {
+                    "stack-sm": "0.5rem",
+                    "margin-desktop": "2.5rem",
+                    "stack-md": "1rem",
+                    "gutter": "1.5rem",
+                    "margin-mobile": "1rem",
+                    "container-max": "1280px",
+                    "stack-lg": "2rem"
+            },
+            "fontFamily": {
+                    "headline-md": [
+                            "Montserrat"
+                    ],
+                    "display-lg": [
+                            "Montserrat"
+                    ],
+                    "headline-lg": [
+                            "Montserrat"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "display-lg-mobile": [
+                            "Montserrat"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(31, 41, 55, 0.05);
+        }
+        .input-floating:focus-within label {
+            transform: translateY(-1.25rem) scale(0.85);
+            color: #f59e0b;
+        }
+        .input-floating input:not(:placeholder-shown) + label {
+            transform: translateY(-1.25rem) scale(0.85);
+        }
+        
+        #success-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease-out;
+        }
+        #success-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background: #f59e0b;
+            top: -20px;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen flex flex-col relative">
+<!-- Minimal TopAppBar (Transactional Context - Suppressed full nav) -->
+<header class="bg-surface-glass backdrop-blur-xl shadow-sm sticky top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
+<a class="font-headline-md text-headline-md font-black text-primary hover:opacity-80 transition-opacity" href="/">The Food Mania</a>
+<a class="text-secondary hover:text-primary transition-colors flex items-center gap-2 group" href="/search/">
+<span class="material-symbols-outlined text-xl group-hover:-translate-x-1 transition-transform" data-icon="arrow_back">arrow_back</span>
+<span class="font-label-md text-label-md">Back to Discover</span>
+</a>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-stack-lg">
+<div class="mb-stack-lg">
+<h1 class="font-headline-lg text-headline-lg text-on-background mb-2">Secure Checkout</h1>
+<p class="text-secondary">Almost there! Review your details below.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Forms -->
+<div class="lg:col-span-8 flex flex-col gap-stack-lg">
+<!-- Delivery Details Card -->
+<section class="glass-panel rounded-2xl p-6 lg:p-8 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary-container text-2xl" data-icon="location_on" data-weight="fill">location_on</span>
+<h2 class="font-headline-md text-headline-md">Delivery Details</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="relative input-floating pt-5 bg-surface rounded-lg border border-outline-variant focus-within:border-primary-container focus-within:border-2 transition-colors">
+<input class="w-full bg-transparent px-4 pb-2 pt-1 border-none outline-none text-on-background focus:ring-0 peer" id="firstName" placeholder=" " required="" type="text"/>
+<label class="absolute left-4 top-1/2 -translate-y-1/2 text-secondary transition-all pointer-events-none origin-left" for="firstName">First Name</label>
+</div>
+<div class="relative input-floating pt-5 bg-surface rounded-lg border border-outline-variant focus-within:border-primary-container focus-within:border-2 transition-colors">
+<input class="w-full bg-transparent px-4 pb-2 pt-1 border-none outline-none text-on-background focus:ring-0 peer" id="lastName" placeholder=" " required="" type="text"/>
+<label class="absolute left-4 top-1/2 -translate-y-1/2 text-secondary transition-all pointer-events-none origin-left" for="lastName">Last Name</label>
+</div>
+<div class="md:col-span-2 relative input-floating pt-5 bg-surface rounded-lg border border-outline-variant focus-within:border-primary-container focus-within:border-2 transition-colors">
+<input class="w-full bg-transparent px-4 pb-2 pt-1 border-none outline-none text-on-background focus:ring-0 peer" id="address" placeholder=" " required="" type="text"/>
+<label class="absolute left-4 top-1/2 -translate-y-1/2 text-secondary transition-all pointer-events-none origin-left" for="address">Street Address</label>
+</div>
+<div class="relative input-floating pt-5 bg-surface rounded-lg border border-outline-variant focus-within:border-primary-container focus-within:border-2 transition-colors">
+<input class="w-full bg-transparent px-4 pb-2 pt-1 border-none outline-none text-on-background focus:ring-0 peer" id="apt" placeholder=" " type="text"/>
+<label class="absolute left-4 top-1/2 -translate-y-1/2 text-secondary transition-all pointer-events-none origin-left" for="apt">Apt, Suite (Optional)</label>
+</div>
+<div class="relative input-floating pt-5 bg-surface rounded-lg border border-outline-variant focus-within:border-primary-container focus-within:border-2 transition-colors">
+<input class="w-full bg-transparent px-4 pb-2 pt-1 border-none outline-none text-on-background focus:ring-0 peer" id="phone" placeholder=" " required="" type="tel"/>
+<label class="absolute left-4 top-1/2 -translate-y-1/2 text-secondary transition-all pointer-events-none origin-left" for="phone">Phone Number</label>
+</div>
+</div>
+<div class="mt-6">
+<label class="block font-label-md text-label-md mb-2 text-on-surface" for="instructions">Delivery Instructions</label>
+<textarea class="w-full bg-surface rounded-lg border border-outline-variant focus:border-primary-container focus:border-2 transition-colors p-4 resize-none outline-none" id="instructions" placeholder="e.g., Leave at the door, call upon arrival..." rows="3"></textarea>
+</div>
+</section>
+<!-- Payment Method Card -->
+<section class="glass-panel rounded-2xl p-6 lg:p-8 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary-container text-2xl" data-icon="credit_card" data-weight="fill">credit_card</span>
+<h2 class="font-headline-md text-headline-md">Payment Method</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="payment" type="radio"/>
+<div class="border border-outline-variant rounded-xl p-4 flex flex-col items-center justify-center gap-2 peer-checked:border-primary-container peer-checked:bg-surface-container hover:bg-surface transition-colors h-full">
+<span class="material-symbols-outlined text-on-surface" data-icon="credit_card">credit_card</span>
+<span class="font-label-md text-label-md">Credit Card</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="payment" type="radio"/>
+<div class="border border-outline-variant rounded-xl p-4 flex flex-col items-center justify-center gap-2 peer-checked:border-primary-container peer-checked:bg-surface-container hover:bg-surface transition-colors h-full">
+<span class="material-symbols-outlined text-on-surface" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-md text-label-md">Apple Pay</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="payment" type="radio"/>
+<div class="border border-outline-variant rounded-xl p-4 flex flex-col items-center justify-center gap-2 peer-checked:border-primary-container peer-checked:bg-surface-container hover:bg-surface transition-colors h-full">
+<span class="material-symbols-outlined text-on-surface" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">PayPal</span>
+</div>
+</label>
+</div>
+<!-- Credit Card Form (Visible by default in this mockup) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="md:col-span-2 relative input-floating pt-5 bg-surface rounded-lg border border-outline-variant focus-within:border-primary-container focus-within:border-2 transition-colors">
+<input class="w-full bg-transparent px-4 pb-2 pt-1 border-none outline-none text-on-background focus:ring-0 peer" id="ccName" placeholder=" " type="text"/>
+<label class="absolute left-4 top-1/2 -translate-y-1/2 text-secondary transition-all pointer-events-none origin-left" for="ccName">Name on Card</label>
+</div>
+<div class="md:col-span-2 relative input-floating pt-5 bg-surface rounded-lg border border-outline-variant focus-within:border-primary-container focus-within:border-2 transition-colors">
+<input class="w-full bg-transparent px-4 pb-2 pt-1 border-none outline-none text-on-background focus:ring-0 peer" id="ccNumber" placeholder=" " type="text"/>
+<label class="absolute left-4 top-1/2 -translate-y-1/2 text-secondary transition-all pointer-events-none origin-left" for="ccNumber">Card Number</label>
+</div>
+<div class="relative input-floating pt-5 bg-surface rounded-lg border border-outline-variant focus-within:border-primary-container focus-within:border-2 transition-colors">
+<input class="w-full bg-transparent px-4 pb-2 pt-1 border-none outline-none text-on-background focus:ring-0 peer" id="ccExp" placeholder=" " type="text"/>
+<label class="absolute left-4 top-1/2 -translate-y-1/2 text-secondary transition-all pointer-events-none origin-left" for="ccExp">MM/YY</label>
+</div>
+<div class="relative input-floating pt-5 bg-surface rounded-lg border border-outline-variant focus-within:border-primary-container focus-within:border-2 transition-colors">
+<input class="w-full bg-transparent px-4 pb-2 pt-1 border-none outline-none text-on-background focus:ring-0 peer" id="ccCvv" placeholder=" " type="text"/>
+<label class="absolute left-4 top-1/2 -translate-y-1/2 text-secondary transition-all pointer-events-none origin-left" for="ccCvv">CVV</label>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Order Summary (Sticky) -->
+<div class="lg:col-span-4">
+<div class="sticky top-24 glass-panel rounded-2xl p-6 flex flex-col gap-6">
+<h2 class="font-headline-md text-headline-md border-b border-outline-variant/30 pb-4">Order Summary</h2>
+<!-- Items List (Truncated for checkout view) -->
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center font-label-md text-primary-container">2x</div>
+<div>
+<p class="font-label-md text-label-md">Truffle Burger</p>
+<p class="text-sm text-secondary">No onions</p>
+</div>
+</div>
+<span class="font-label-md text-label-md">TZS 90,000</span>
+</div>
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center font-label-md text-primary-container">1x</div>
+<div>
+<p class="font-label-md text-label-md">Sweet Potato Fries</p>
+</div>
+</div>
+<span class="font-label-md text-label-md">TZS 21,250</span>
+</div>
+</div>
+<hr class="border-outline-variant/30"/>
+<!-- Calculations -->
+<div class="flex flex-col gap-3 font-body-md text-body-md">
+<div class="flex justify-between text-secondary">
+<span>Subtotal</span>
+<span>TZS 111,250</span>
+</div>
+<div class="flex justify-between text-secondary">
+<span>Delivery Fee</span>
+<span>TZS 10,000</span>
+</div>
+<div class="flex justify-between text-secondary">
+<span>Taxes &amp; Fees</span>
+<span>TZS 10,300</span>
+</div>
+</div>
+<hr class="border-outline-variant/30"/>
+<!-- Total -->
+<div class="flex justify-between items-end">
+<span class="font-headline-md text-headline-md">Total</span>
+<span class="font-display-lg text-display-lg text-primary-container">TZS 131,550</span>
+</div>
+<!-- CTA -->
+<button class="w-full bg-[#1F2937] hover:bg-black text-white font-label-md text-label-md py-4 rounded-lg transition-all duration-200 active:scale-[0.98] mt-2 flex items-center justify-center gap-2" id="place-order-btn">
+<span>Place Order</span>
+<span class="material-symbols-outlined text-lg" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<p class="text-xs text-center text-secondary">By placing your order, you agree to our Terms of Service and Privacy Policy.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Success Overlay Concept -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-surface-glass backdrop-blur-xl" id="success-overlay">
+<div class="glass-panel p-10 rounded-2xl max-w-md w-full mx-4 text-center transform scale-95 transition-transform duration-500" id="success-card">
+<div class="w-24 h-24 bg-primary-container/20 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-primary-container text-5xl" data-icon="check_circle" data-weight="fill">check_circle</span>
+</div>
+<h2 class="font-display-lg-mobile text-display-lg-mobile text-on-background mb-4">Order Placed!</h2>
+<p class="text-secondary font-body-md text-body-md mb-8">Your culinary experience is being prepared. We'll notify you when it's on the way.</p>
+<button class="bg-primary-container text-on-primary font-label-md text-label-md py-3 px-8 rounded-lg hover:bg-orange-600 transition-colors w-full" onclick="window.location.href='/tracker/'">
+                Track Order
+            </button>
+</div>
+</div>
+<!-- Minimal Footer (Transactional Context) -->
+<footer class="w-full py-8 px-margin-desktop mt-stack-lg border-t border-outline-variant/20 bg-secondary flex flex-col items-center gap-4">
+<div class="flex flex-wrap justify-center gap-6">
+<a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300" href="/about/">About Us</a>
+<a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300" href="/sustainability/">Sustainability</a>
+<a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300" href="/partner/">Partner with Us</a>
+<a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300" href="/terms/">Terms of Service</a>
+<a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300" href="/privacy/">Privacy Policy</a>
+</div>
+<p class="text-on-secondary font-body-md text-body-md text-center">© 2024 The Food Mania. Epicurean Modernity.</p>
+</footer>    <script>
+        // Micro-interaction for Place Order button leading to Success State
+        document.getElementById('place-order-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const btn = this;
+            
+            // Get form values
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+            
+            if(!firstName || !lastName || !address || !phone) {
+                alert("Please fill all required fields");
+                return;
+            }
+            
+            // Loading state
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="sync">sync</span> Processing...';
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+            
+            const payload = {
+                firstName: firstName,
+                lastName: lastName,
+                address1: address,
+                phone: phone,
+                amount: 131550,
+                items: [
+                    { name: "Truffle Burger", qty: 2, price: 45000 },
+                    { name: "Sweet Potato Fries", qty: 1, price: 21250 }
+                ]
+            };
+            
+            // Call API
+            fetch('/shop/api/checkout/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.order_id) {
+                    showSuccessState(data.order_id);
+                } else {
+                    alert("Error placing order");
+                    btn.innerHTML = '<span>Place Order</span><span class="material-symbols-outlined text-lg">arrow_forward</span>';
+                    btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Error placing order");
+                btn.innerHTML = '<span>Place Order</span><span class="material-symbols-outlined text-lg">arrow_forward</span>';
+                btn.classList.remove('opacity-80', 'cursor-not-allowed');
+            });
+        });
+
+        // Helper to get CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function showSuccessState(orderId) {
+            const overlay = document.getElementById('success-overlay');
+            const card = document.getElementById('success-card');
+            
+            // Store order ID to show in tracker
+            localStorage.setItem('lastOrderId', orderId);
+            
+            overlay.classList.add('active');
+            setTimeout(() => {
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+                createConfetti();
+            }, 50);
+        }
+
+        function createConfetti() {
+            const colors = ['#f59e0b', '#1F2937', '#d8c3ad'];
+            for(let i=0; i<30; i++) {
+                let confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                confetti.style.animationDelay = Math.random() + 's';
+                document.getElementById('success-overlay').appendChild(confetti);
+            }
+        }
+    </script>
+</body></html>

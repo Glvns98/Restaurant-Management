@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - The Food Mania</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "background": "#f9f9ff",
+                "on-background": "#151c27",
+                "surface": "#f9f9ff",
+                "on-surface": "#151c27",
+                "primary": "#855300",
+                "secondary": "#555f6f",
+                "secondary-fixed-dim": "#bdc7d9",
+                "on-secondary": "#ffffff",
+                "outline-variant": "#d8c3ad",
+                "surface-glass": "rgba(255, 255, 255, 0.8)",
+                "primary-fixed": "#ffddb8",
+              },
+              fontFamily: {
+                "headline-md": ["Montserrat"],
+                "display-lg": ["Montserrat"],
+                "body-md": ["Inter"],
+                "label-md": ["Inter"]
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+    <!-- Minimal Header -->
+    <header class="bg-surface-glass backdrop-blur-xl shadow-sm sticky top-0 w-full z-50 flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+        <a href="/" class="font-headline-md text-2xl font-black text-primary hover:opacity-80 transition-opacity">The Food Mania</a>
+        <a href="/" class="text-secondary hover:text-primary transition-colors flex items-center gap-2 group">
+            <span class="material-symbols-outlined text-xl group-hover:-translate-x-1 transition-transform">arrow_back</span>
+            <span class="font-label-md text-sm font-semibold">Back to Home</span>
+        </a>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-6 py-12">
+        <h1 class="font-display-lg text-4xl font-bold mb-8 text-primary">{{ title }}</h1>
+        <div class="glass-panel p-8 rounded-2xl leading-relaxed text-secondary shadow-sm">
+            {{ content|safe }}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-12 px-6 mt-16 border-t border-outline-variant/20 bg-secondary flex justify-center">
+        <p class="text-on-secondary font-body-md text-center">© 2024 The Food Mania. Epicurean Modernity.</p>
+    </footer>
+</body>
+</html>
