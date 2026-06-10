@@ -3,12 +3,13 @@ from rest_framework import viewsets, views, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Product, Orders, OrderUpdate, Contact, Notification, Cart, CartItem, OrderItem
-from .serializers import ProductSerializer, OrderSerializer, OrderUpdateSerializer, NotificationSerializer
+from .serializers import ProductSerializer, OrderSerializer, OrderUpdateSerializer, NotificationSerializer, ContactSerializer
 import logging
-import json
 from django.utils import timezone
+from PayTm import Checksum
 
 logger = logging.getLogger(__name__)
+MERCHANT_KEY = 'kbzk1DSbJiV_O3p5'
 from django.db.models import Q
 from rest_framework.pagination import PageNumberPagination
 
@@ -39,9 +40,14 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
             )
             
         # Filters
-        category = self.request.query_params.get('category', None)
-        if category and category.lower() != 'all':
-            queryset = queryset.filter(category__iexact=category)
+        categories = self.request.query_params.getlist('category')
+        if categories:
+            filtered_cats = [c for c in categories if c.lower() != 'all']
+            if filtered_cats:
+                cat_query = Q()
+                for cat in filtered_cats:
+                    cat_query |= Q(category__iexact=cat)
+                queryset = queryset.filter(cat_query)
             
         min_price = self.request.query_params.get('min_price', None)
         max_price = self.request.query_params.get('max_price', None)
@@ -195,6 +201,25 @@ class CheckoutAPIView(views.APIView):
             
             logger.info(f"Order #{order.order_id} successfully created for user {request.user.username} with amount {calculated_amount}")
             
+            # Check if user wants online payment
+            if data.get('payment_method') == 'online':
+                param_dict = {
+                    'MID': 'WorldP64425807474247',
+                    'ORDER_ID': str(order.order_id),
+                    'TXN_AMOUNT': str(calculated_amount),
+                    'CUST_ID': request.user.email,
+                    'INDUSTRY_TYPE_ID': 'Retail',
+                    'WEBSITE': 'WEBSTAGING',
+                    'CHANNEL_ID': 'WEB',
+                    'CALLBACK_URL': 'http://127.0.0.1:8000/shop/api/handlerequest/',
+                }
+                param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, MERCHANT_KEY)
+                return Response({
+                    "message": "Redirecting to PayTm", 
+                    "order_id": order.order_id,
+                    "paytm_params": param_dict
+                }, status=status.HTTP_201_CREATED)
+
             return Response({
                 "message": "Order placed successfully", 
                 "order_id": order.order_id
@@ -203,6 +228,41 @@ class CheckoutAPIView(views.APIView):
         except Exception as e:
             logger.error(f"Error during checkout for user {request.user.username}: {str(e)}")
             return Response({"error": "An error occurred during checkout. Please try again."}, status=status.HTTP_400_BAD_REQUEST)
+
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
+@method_decorator(csrf_exempt, name='dispatch')
+class PayTmHandleRequestAPIView(views.APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        # paytm will send you post request here
+        form = request.data
+        response_dict = {}
+        for i in form.keys():
+            response_dict[i] = form[i]
+            if i == 'CHECKSUMHASH':
+                checksum = form[i]
+
+        verify = Checksum.verify_checksum(response_dict, MERCHANT_KEY, checksum)
+        if verify:
+            if response_dict['RESPCODE'] == '01':
+                print('order successful')
+                order_id = response_dict['ORDER_ID']
+                try:
+                    order = Orders.objects.get(order_id=order_id)
+                    order.status = 2 # Preparing
+                    order.save()
+                    OrderUpdate.objects.create(order=order, status_description="Payment Successful")
+                except Orders.DoesNotExist:
+                    pass
+            else:
+                print('order was not successful because' + response_dict['RESPMSG'])
+        
+        # In a real app, you'd redirect to a success page or return JSON
+        return Response({"status": "verified", "response": response_dict})
+
 
 class TrackerAPIView(views.APIView):
     permission_classes = [IsAuthenticated]
@@ -258,6 +318,105 @@ class TrackerAPIView(views.APIView):
             return Response({"status": "noitem", "message": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+class ContactAPIView(views.APIView):
+    permission_classes = [AllowAny]
+    
+    def post(self, request):
+        serializer = ContactSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Message sent successfully"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+from django.contrib.auth import authenticate, login, logout
+from .forms import SignUpForm
+from .models import UserProfile
+
+class SignUpAPIView(views.APIView):
+    permission_classes = [AllowAny]
+    
+    def post(self, request):
+        form = SignUpForm(request.data)
+        if form.is_valid():
+            user = form.save()
+            password = form.cleaned_data.get('password')
+            user.set_password(password)
+            user.save()
+            role = form.cleaned_data.get('role', 'CUSTOMER')
+            UserProfile.objects.create(user=user, role=role)
+            return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED)
+        return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class SignInAPIView(views.APIView):
+    permission_classes = [AllowAny]
+    
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        # Note: In a real app, we might also want to verify the role matches, 
+        # but usually login is global and role determines destination.
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            profile, _ = UserProfile.objects.get_or_create(user=user)
+            return Response({
+                "message": "Login successful",
+                "role": profile.role,
+                "username": user.username
+            })
+        return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+
+class UserProfileAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        profile, _ = UserProfile.objects.get_or_create(user=request.user)
+        return Response({
+            "username": request.user.username,
+            "email": request.user.email,
+            "first_name": request.user.first_name,
+            "last_name": request.user.last_name,
+            "role": profile.role
+        })
+
+class LogoutAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        logout(request)
+        return Response({"message": "Logged out successfully"})
+
+class AdminDashboardAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        if request.user.profile.role != 'ADMIN':
+            return Response({"error": "Unauthorized"}, status=status.HTTP_403_FORBIDDEN)
+        
+        # Admin stats
+        total_orders = Orders.objects.count()
+        total_revenue = sum(o.amount for o in Orders.objects.all())
+        total_products = Product.objects.count()
+        
+        return Response({
+            "stats": {
+                "total_orders": total_orders,
+                "total_revenue": float(total_revenue),
+                "total_products": total_products
+            }
+        })
+
+class EmployeeDashboardAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        if request.user.profile.role not in ['ADMIN', 'EMPLOYEE']:
+            return Response({"error": "Unauthorized"}, status=status.HTTP_403_FORBIDDEN)
+        
+        # Pending orders for employees
+        pending_orders = Orders.objects.filter(status__lt=9).order_by('-timestamp')
+        return Response(OrderSerializer(pending_orders, many=True).data)
 
 class NotificationAPIView(views.APIView):
     permission_classes = [IsAuthenticated]

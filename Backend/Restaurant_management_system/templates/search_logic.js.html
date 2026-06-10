@@ -1,0 +1,115 @@
+            // Categories list for filters
+            const defaultCategories = ['Appetizers, Starters & Party Food', 'Burger', 'Coffee', 'Drinks', 'Pizza', 'South Indian'];
+            
+            // Render Categories
+            function renderCategoryFilters() {
+                const params = new URLSearchParams(window.location.search);
+                const activeCategories = params.getAll('category').map(c => c.toLowerCase());
+                
+                categoryFiltersContainer.innerHTML = '';
+                defaultCategories.forEach(cat => {
+                    const isChecked = activeCategories.includes(cat.toLowerCase()) ? 'checked' : '';
+                    categoryFiltersContainer.insertAdjacentHTML('beforeend', `
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" value="${cat}" class="category-checkbox w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" ${isChecked} onchange="triggerFilter()"/>
+                            <span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">${cat}</span>
+                        </label>
+                    `);
+                });
+                
+                updatePageTitle();
+            }
+
+            function updatePageTitle() {
+                const checkedCats = Array.from(document.querySelectorAll('.category-checkbox:checked')).map(cb => cb.value);
+                if (checkedCats.length > 0) {
+                    const titleText = checkedCats.join(', ');
+                    document.getElementById('pageTitle').innerHTML = `Discovering <span class="text-primary">${titleText}</span>`;
+                } else {
+                    document.getElementById('pageTitle').innerHTML = `Discovering <span class="text-primary">All</span>`;
+                }
+            }
+
+            // Fetch Logic
+            function fetchProducts() {
+                // Build query string
+                const params = new URLSearchParams();
+                
+                if (currentSearchQuery) {
+                    params.append('q', currentSearchQuery);
+                }
+                
+                // Categories (Multi-select)
+                const checkedCats = Array.from(document.querySelectorAll('.category-checkbox:checked')).map(cb => cb.value);
+                
+                updatePageTitle();
+                
+                if (checkedCats.length > 0) {
+                    checkedCats.forEach(cat => params.append('category', cat));
+                    // Update Nav State based on first cat for simplicity
+                    updateNavState(checkedCats[0]);
+                } else {
+                    updateNavState('all');
+                }
+                
+                const minPrice = document.getElementById('minPrice').value;
+                if(minPrice) params.append('min_price', minPrice);
+                
+                const maxPrice = document.getElementById('maxPrice').value;
+                if(maxPrice) params.append('max_price', maxPrice);
+                
+                const ratingRadio = document.querySelector('input[name="rating"]:checked');
+                if(ratingRadio) params.append('min_rating', ratingRadio.value);
+                
+                const prepTime = document.getElementById('prepTime').value;
+                if(prepTime) params.append('prep_time', prepTime);
+                
+                const isAvail = document.getElementById('isAvailable').checked;
+                if(isAvail) params.append('is_available', 'true');
+                
+                params.append('page', currentPage);
+                
+                loadMoreBtn.innerHTML = 'Loading...';
+                
+                fetch(`/shop/api/products/?${params.toString()}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        const results = data.results || data;
+                        hasNextPage = !!data.next;
+                        
+                        if (currentPage === 1) {
+                            allProducts = results;
+                            grid.innerHTML = '';
+                        } else {
+                            allProducts = allProducts.concat(results);
+                        }
+                        
+                        renderProducts(results, currentPage === 1);
+                        
+                        if(data.count !== undefined) {
+                            summaryText.textContent = `${data.count} premium culinary experiences found.`;
+                        } else {
+                            summaryText.textContent = `${allProducts.length} premium culinary experiences found.`;
+                        }
+                        
+                        if (allProducts.length === 0) {
+                            emptyState.classList.remove('hidden');
+                            emptyState.classList.add('flex');
+                            loadMoreContainer.classList.add('hidden');
+                        } else {
+                            emptyState.classList.add('hidden');
+                            emptyState.classList.remove('flex');
+                            if(hasNextPage) {
+                                loadMoreContainer.classList.remove('hidden');
+                            } else {
+                                loadMoreContainer.classList.add('hidden');
+                            }
+                        }
+                        
+                        loadMoreBtn.innerHTML = 'Load More <span class="material-symbols-outlined">expand_more</span>';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching products:', error);
+                        loadMoreBtn.innerHTML = 'Load More <span class="material-symbols-outlined">expand_more</span>';
+                    });
+            }

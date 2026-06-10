@@ -156,9 +156,9 @@
     <div id="popularSearchesSection" class="p-4 border-b border-surface-variant">
         <h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-2">Popular</h4>
         <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 bg-surface-container rounded-full text-sm cursor-pointer hover:bg-primary hover:text-on-primary" onclick="setSearch('Burger')">Burger</span>
-            <span class="px-3 py-1 bg-surface-container rounded-full text-sm cursor-pointer hover:bg-primary hover:text-on-primary" onclick="setSearch('Pasta')">Pasta</span>
+            <span class="px-3 py-1 bg-surface-container rounded-full text-sm cursor-pointer hover:bg-primary hover:text-on-primary" onclick="setSearch('Coffee')">Coffee</span>
             <span class="px-3 py-1 bg-surface-container rounded-full text-sm cursor-pointer hover:bg-primary hover:text-on-primary" onclick="setSearch('Pizza')">Pizza</span>
+            <span class="px-3 py-1 bg-surface-container rounded-full text-sm cursor-pointer hover:bg-primary hover:text-on-primary" onclick="setSearch('Appetizers, Starters & Party Food')">Appetizers, Starters &amp; Party Food</span>
         </div>
     </div>
     <!-- Live Previews -->
@@ -170,8 +170,8 @@
 </div>
 <!-- Navigation Links -->
 <nav class="flex items-center gap-8">
-<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md scale-95 transition-transform duration-150" href="/search/">Discover</a>
-<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary transition-colors hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 transition-all duration-200 px-3 py-1 rounded-md font-label-md text-label-md" href="/search/?category=Trending">Trending</a>
+<a id="navDiscover" class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary transition-colors hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 transition-all duration-200 px-3 py-1 rounded-md font-label-md text-label-md" href="/">Discover</a>
+<a id="navTrending" class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary transition-colors hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 transition-all duration-200 px-3 py-1 rounded-md font-label-md text-label-md" href="/search/">Trending</a>
 <a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary transition-colors hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 transition-all duration-200 px-3 py-1 rounded-md font-label-md text-label-md" href="/tracker/">Orders</a>
 </nav>
 <!-- Trailing Actions -->
@@ -221,7 +221,7 @@ shopping_cart
         <span class="bg-primary text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm mb-4 inline-block shadow-md">Featured</span>
         <h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-primary mb-2 text-white" id="heroTitle">Pesto Genovese</h2>
         <p class="font-body-lg text-body-lg text-on-primary/90 mb-6 text-white" id="heroDesc">Fresh basil, pine nuts, garlic, and extra virgin olive oil blended over linguine.</p>
-        <button class="bg-primary-container text-on-primary font-label-md text-label-md px-6 py-3 rounded-lg shadow-md hover:bg-orange-600 transition-colors" onclick="window.location.href='/search/?category=Trending'">Explore Trending</button>
+        <button class="bg-primary-container text-on-primary font-label-md text-label-md px-6 py-3 rounded-lg shadow-md hover:bg-orange-600 transition-colors" onclick="window.location.href='/search/'">Explore All Foods</button>
     </div>
 </section>
 
@@ -382,6 +382,7 @@ shopping_cart
 <div class="font-headline-md text-headline-md font-black text-primary-fixed">The Food Mania</div>
 <div class="flex flex-wrap justify-center gap-6">
 <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300" href="/about/">About Us</a>
+<a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300" href="/contact/">Contact Us</a>
 <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300" href="/sustainability/">Sustainability</a>
 <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300" href="/partner/">Partner with Us</a>
 <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary hover:underline decoration-primary-fixed underline-offset-4 transition-opacity duration-300" href="/terms/">Terms of Service</a>
@@ -426,16 +427,16 @@ shopping_cart
             let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
             // Categories list for filters
-            const defaultCategories = ['Trending', 'Pasta', 'Burgers', 'Sushi', 'Salads', 'Fine Dining', 'Quick Bites', 'Healthy Choices', 'Midnight Cravings', 'Desserts', 'Beverages'];
+            const defaultCategories = ['Appetizers, Starters & Party Food', 'Burger', 'Coffee', 'Drinks', 'Pizza', 'South Indian'];
             
             // Render Categories
             function renderCategoryFilters() {
                 const params = new URLSearchParams(window.location.search);
-                const activeCategory = params.get('category') || sessionStorage.getItem('discoverCategory') || 'all';
+                const activeCategories = params.getAll('category').map(c => c.toLowerCase());
                 
                 categoryFiltersContainer.innerHTML = '';
                 defaultCategories.forEach(cat => {
-                    const isChecked = (cat.toLowerCase() === activeCategory.toLowerCase()) ? 'checked' : '';
+                    const isChecked = activeCategories.includes(cat.toLowerCase()) ? 'checked' : '';
                     categoryFiltersContainer.insertAdjacentHTML('beforeend', `
                         <label class="flex items-center gap-3 cursor-pointer group">
                             <input type="checkbox" value="${cat}" class="category-checkbox w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" ${isChecked} onchange="triggerFilter()"/>
@@ -444,175 +445,29 @@ shopping_cart
                     `);
                 });
                 
-                if (activeCategory && activeCategory !== 'all') {
-                    document.getElementById('pageTitle').innerHTML = `Discovering <span class="text-primary">${activeCategory}</span>`;
+                updatePageTitle();
+            }
+
+            function updatePageTitle() {
+                const checkedCats = Array.from(document.querySelectorAll('.category-checkbox:checked')).map(cb => cb.value);
+                if (checkedCats.length > 0) {
+                    const titleText = checkedCats.join(', ');
+                    document.getElementById('pageTitle').innerHTML = `Discovering <span class="text-primary">${titleText}</span>`;
                 } else {
                     document.getElementById('pageTitle').innerHTML = `Discovering <span class="text-primary">All</span>`;
                 }
             }
-            
-            renderCategoryFilters();
 
-            // Cart Update Logic
-            window.updateCartBadge = function() {
-                fetch('/shop/api/cart/')
-                    .then(res => res.json())
-                    .then(data => {
-                        const count = data.items ? data.items.reduce((acc, item) => acc + item.quantity, 0) : 0;
-                        if (count > 0) {
-                            cartBadge.textContent = count;
-                            cartBadge.classList.remove('hidden');
-                        } else {
-                            cartBadge.classList.add('hidden');
-                        }
-                    });
-            };
-            
-            updateCartBadge();
-            
-            window.addToCart = function(productId, e) {
-                if (e) { e.stopPropagation(); e.preventDefault(); }
-                fetch('/shop/api/cart/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': getCookie('csrftoken') || ''
-                    },
-                    body: JSON.stringify({ action: 'add', product_id: productId })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    updateCartBadge();
-                    // Show a tooltip or toast (could add to DOM here)
-                    alert('Added to cart');
-                });
-            };
-            
-            window.buyNow = function(productId, e) {
-                if (e) { e.stopPropagation(); e.preventDefault(); }
-                fetch('/shop/api/cart/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': getCookie('csrftoken') || ''
-                    },
-                    body: JSON.stringify({ action: 'add', product_id: productId })
-                })
-                .then(res => res.json())
-                .then(() => {
-                    window.location.href = '/checkout/';
-                });
+            window.updateNavState = function(selectedCategory = 'all') {
+                const navTrending = document.getElementById('navTrending');
+                if (navTrending) {
+                    navTrending.classList.toggle('text-primary', selectedCategory !== 'all');
+                    navTrending.classList.toggle('font-semibold', selectedCategory !== 'all');
+                }
             };
 
-            function getCookie(name) {
-                let cookieValue = null;
-                if (document.cookie && document.cookie !== '') {
-                    const cookies = document.cookie.split(';');
-                    for (let i = 0; i < cookies.length; i++) {
-                        const cookie = cookies[i].trim();
-                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-                        }
-                    }
-                }
-                return cookieValue;
-            }
-
-            // Search history logic
-            function updateSearchHistoryUI() {
-                if(searchHistory.length > 0) {
-                    searchHistorySection.classList.remove('hidden');
-                    searchHistoryList.innerHTML = searchHistory.map(term => `
-                        <span class="px-3 py-1 bg-surface-container rounded-full text-sm cursor-pointer flex items-center gap-1 hover:bg-primary hover:text-on-primary" onclick="setSearch('${term}')">
-                            <span class="material-symbols-outlined text-[14px]">history</span> ${term}
-                        </span>
-                    `).join('');
-                } else {
-                    searchHistorySection.classList.add('hidden');
-                }
-            }
-            
-            window.setSearch = function(term) {
-                globalSearchInput.value = term;
-                currentSearchQuery = term;
-                addToHistory(term);
-                searchDropdown.classList.add('hidden');
-                triggerFilter();
-            };
-            
-            function addToHistory(term) {
-                if(!term) return;
-                searchHistory = searchHistory.filter(t => t !== term);
-                searchHistory.unshift(term);
-                if(searchHistory.length > 5) searchHistory.pop();
-                localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-                updateSearchHistoryUI();
-            }
-
-            // Real-time search UI triggers
-            globalSearchInput.addEventListener('focus', () => {
-                searchDropdown.classList.remove('hidden');
-                updateSearchHistoryUI();
-            });
-
-            document.addEventListener('click', (e) => {
-                if(!searchDropdown.contains(e.target) && e.target !== globalSearchInput) {
-                    searchDropdown.classList.add('hidden');
-                }
-            });
-
-            globalSearchInput.addEventListener('input', (e) => {
-                const query = e.target.value.trim();
-                currentSearchQuery = query;
-                
-                if(query.length > 0) {
-                    document.getElementById('popularSearchesSection').classList.add('hidden');
-                    searchPreviewsSection.classList.remove('hidden');
-                } else {
-                    document.getElementById('popularSearchesSection').classList.remove('hidden');
-                    searchPreviewsSection.classList.add('hidden');
-                }
-
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(() => {
-                    // Fetch live previews
-                    if(query.length > 0) {
-                        fetch(`/shop/api/products/?q=${encodeURIComponent(query)}&page_size=3`)
-                            .then(res => res.json())
-                            .then(data => {
-                                const items = data.results || data;
-                                searchPreviewsList.innerHTML = items.map(p => `
-                                    <div class="p-3 hover:bg-surface-container cursor-pointer flex items-center gap-3 border-b border-surface-variant" onclick="window.location.href='/search/?category=${p.category}'">
-                                        <img src="${p.image_url || p.image || ''}" class="w-12 h-12 rounded object-cover" />
-                                        <div>
-                                            <div class="font-label-md text-on-surface">${p.name}</div>
-                                            <div class="font-label-sm text-on-surface-variant">${p.category}</div>
-                                        </div>
-                                    </div>
-                                `).join('');
-                            });
-                    }
-                    
-                    // Trigger main search
-                    currentPage = 1;
-                    allProducts = [];
-                    fetchProducts();
-                }, 400);
-            });
-
-            globalSearchInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    addToHistory(currentSearchQuery);
-                    searchDropdown.classList.add('hidden');
-                    triggerFilter();
-                }
-            });
-
-            // Filter triggers
             window.triggerFilter = function() {
                 currentPage = 1;
-                allProducts = [];
                 fetchProducts();
             };
 
@@ -620,14 +475,13 @@ shopping_cart
                 document.querySelectorAll('.category-checkbox').forEach(cb => cb.checked = false);
                 document.getElementById('minPrice').value = '';
                 document.getElementById('maxPrice').value = '';
-                document.querySelectorAll('input[name="rating"]').forEach(rb => rb.checked = false);
                 document.getElementById('prepTime').value = '';
                 document.getElementById('isAvailable').checked = true;
+                document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
                 currentSearchQuery = '';
-                globalSearchInput.value = '';
-                
                 currentPage = 1;
-                allProducts = [];
+                updateNavState('all');
+                renderCategoryFilters();
                 fetchProducts();
             };
 
@@ -640,13 +494,17 @@ shopping_cart
                     params.append('q', currentSearchQuery);
                 }
                 
-                // Categories (support multiple, but backend handles one. For now, take first checked or 'all')
+                // Categories (Multi-select)
                 const checkedCats = Array.from(document.querySelectorAll('.category-checkbox:checked')).map(cb => cb.value);
+                
+                updatePageTitle();
+                
                 if (checkedCats.length > 0) {
-                    params.append('category', checkedCats[0]);
-                    document.getElementById('pageTitle').innerHTML = `Discovering <span class="text-primary">${checkedCats[0]}</span>`;
+                    checkedCats.forEach(cat => params.append('category', cat));
+                    // Update Nav State based on first cat for simplicity
+                    updateNavState(checkedCats[0]);
                 } else {
-                    document.getElementById('pageTitle').innerHTML = `Discovering <span class="text-primary">All</span>`;
+                    updateNavState('all');
                 }
                 
                 const minPrice = document.getElementById('minPrice').value;
@@ -783,6 +641,7 @@ shopping_cart
             });
 
             // Initial Fetch
+            renderCategoryFilters();
             fetchProducts();
             
             // Populate Horizontal Slider
@@ -796,7 +655,7 @@ shopping_cart
                         return `
                         <div class="min-w-[280px] snap-center bg-surface-container-lowest rounded-xl shadow-md border border-surface-variant overflow-hidden bento-hover cursor-pointer" onclick="window.location.href='/search/?category=${p.category}'">
                             <div class="relative h-32 w-full overflow-hidden">
-                                <img src="${p.image_url || p.image}" alt="${p.name}" class="w-full h-full object-cover" />
+                                <img src="${p.image_url || p.image || 'https://via.placeholder.com/400'}" alt="${p.name}" class="w-full h-full object-cover" />
                             </div>
                             <div class="p-4">
                                 <h4 class="font-headline-md text-body-md font-bold text-on-surface truncate">${p.name}</h4>

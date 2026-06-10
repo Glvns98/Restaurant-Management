@@ -51,7 +51,7 @@ tailwind.config = {
 <nav class="sticky top-0 w-full z-50 flex justify-between items-center px-8 py-4 max-w-7xl mx-auto bg-surface-glass backdrop-blur-xl shadow-sm">
     <div class="flex items-center gap-6"><span class="font-headline-md text-headline-md font-black text-primary">The Food Mania</span></div>
     <div class="hidden md:flex items-center gap-8">
-        <a class="font-label-md text-secondary hover:text-primary transition-colors" href="/search/">Discover</a>
+        <a class="font-label-md text-secondary hover:text-primary transition-colors" href="/">Discover</a>
         <a class="font-label-md text-primary font-bold border-b-2 border-primary pb-1" href="/tracker/">Orders</a>
     </div>
     <div class="flex items-center gap-4">
@@ -171,7 +171,22 @@ tailwind.config = {
     </div>
 </div>
 
-<footer class="w-full py-12 border-t mt-12 text-center bg-white"><p>© 2024 The Food Mania. Epicurean Modernity.</p></footer>
+<footer class="w-full py-16 px-margin-desktop mt-stack-lg border-t border-outline-variant/20 bg-secondary text-on-secondary">
+    <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+        <div>
+            <div class="font-headline-md text-headline-md font-black text-primary-fixed mb-4">The Food Mania</div>
+            <p class="font-body-md text-body-md text-secondary-fixed-dim">© 2024 The Food Mania. Epicurean Modernity.</p>
+        </div>
+        <div class="flex flex-wrap gap-6 md:gap-8 justify-center">
+            <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary transition-colors hover:underline decoration-primary-fixed underline-offset-4" href="/about/">About Us</a>
+            <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary transition-colors hover:underline decoration-primary-fixed underline-offset-4" href="/contact/">Contact Us</a>
+            <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary transition-colors hover:underline decoration-primary-fixed underline-offset-4" href="/sustainability/">Sustainability</a>
+            <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary transition-colors hover:underline decoration-primary-fixed underline-offset-4" href="/partner/">Partner with Us</a>
+            <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary transition-colors hover:underline decoration-primary-fixed underline-offset-4" href="/terms/">Terms of Service</a>
+            <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary transition-colors hover:underline decoration-primary-fixed underline-offset-4" href="/privacy/">Privacy Policy</a>
+        </div>
+    </div>
+</footer>
 
 <script>
     let map, restaurantMarker, riderMarker, userMarker, routeLine;

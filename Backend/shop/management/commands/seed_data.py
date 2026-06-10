@@ -1,90 +1,121 @@
 import random
+import json
+import os
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from shop.models import Restaurant, Product
 from django.contrib.auth.models import User
+from django.conf import settings
 
 class Command(BaseCommand):
-    help = 'Seeds the database with a high-density, realistic catalog of food items.'
+    help = 'Seeds the database with the exact product list and categories provided by the user.'
 
     def handle(self, *args, **kwargs):
-        self.stdout.write("Seeding data...")
+        self.stdout.write("Seeding user-defined data...")
 
         # Create a default user and restaurant if they don't exist
         user, _ = User.objects.get_or_create(username='admin_seeder', email='admin@thefoodmania.com')
-        user.set_password('password123')
-        user.save()
+        if _:
+            user.set_password('password123')
+            user.save()
 
         restaurant, _ = Restaurant.objects.get_or_create(
             name="The Epicurean Hub",
             defaults={'location': '123 Main St', 'owner': user}
         )
 
-        categories = [
-            'Fine Dining', 'Quick Bites', 'Healthy Choices', 
-            'Midnight Cravings', 'Trending', 'Desserts', 'Beverages'
-        ]
-        
-        foods = [
-            ("Truffle Mushroom Burger", "A gourmet classic cheeseburger on a rustic wooden board with truffle oil.", 18.50, "Quick Bites", "https://lh3.googleusercontent.com/aida-public/AB6AXuDUuIVBHcj7zCXRys67jdX0_5uxaWLFW3NlxOQ80rEV0n_99TgqWnsqPBX2B2Q_x_H8l14-SgfgufjOIFCIbarjye1mfqkeAeZoX6WRDrwa1i2JYCXnL6f-H1rlaxZDddv__PpSc0ONPZzw8V4Dg9O5I2dQx4nu3hM-de719s-ZvPvHOUx6WyPOf61D0KfziATW_vxkdWeNI1_ldWDumZkoTSjW4VFrX2CdfWQJCkMpeXb-Ae_zEcamb2nIlQDD2iOIWysRzc0Wogru"),
-            ("Sweet Potato Fries", "Crispy sweet potato fries with garlic aioli.", 6.00, "Quick Bites", "https://lh3.googleusercontent.com/aida-public/AB6AXuCss8SPslqL_NCtXUUF5IcVAAgVzBi6OF0QHu8M0dK4HlYnv8hyWmRwi6MTbNqTOMdiPfDafOh5SGu5blIUZ3rHHkiLD2Kqjlpi2v6VYE5Fio2Rjmt4mnECWYlux5MicLAywbSprwJuFPIhQF1TVyRfv-V5ZIirC89wDHSnC8jmhNTSX9dkBZT1h2SZrYER3RN6e2cRMo-awUQX_Bzr5d-ufUJcMH9SkzZ8hgPPEZ6scy3Ze-uFr9ofly5_haqGrZcVn0AOP1kELPBa"),
-            ("Avocado Toast", "Toasted sourdough bread with mashed avocado, cherry tomatoes, and a sprinkle of feta cheese.", 12.00, "Healthy Choices", ""),
-            ("Quinoa Salad", "Fresh quinoa with mixed greens, roasted vegetables, and lemon vinaigrette.", 14.50, "Healthy Choices", ""),
-            ("Wagyu Steak", "Premium A5 Wagyu beef cooked to perfection, served with asparagus.", 85.00, "Fine Dining", ""),
-            ("Lobster Bisque", "Rich and creamy soup made with fresh Maine lobster.", 24.00, "Fine Dining", ""),
-            ("Midnight Ramen", "Spicy miso broth with thick noodles, chashu pork, and a soft-boiled egg.", 16.00, "Midnight Cravings", ""),
-            ("Loaded Nachos", "Corn tortilla chips topped with melted cheese, jalapeños, sour cream, and guacamole.", 10.50, "Midnight Cravings", ""),
-            ("Spicy Tuna Roll", "Fresh tuna with spicy mayo wrapped in seaweed and rice.", 15.00, "Trending", ""),
-            ("Margherita Pizza", "Classic Italian pizza with San Marzano tomatoes, fresh mozzarella, and basil.", 18.00, "Trending", ""),
-            ("Chocolate Lava Cake", "Warm chocolate cake with a molten center, served with vanilla ice cream.", 9.50, "Desserts", ""),
-            ("Mango Smoothie", "Freshly blended mangoes with a touch of honey and yogurt.", 6.50, "Beverages", ""),
-            ("Iced Caramel Macchiato", "Espresso with milk, vanilla syrup, and a caramel drizzle.", 5.50, "Beverages", ""),
-            ("Beef Tacos", "Three soft corn tortillas filled with seasoned ground beef, lettuce, and cheese.", 11.00, "Quick Bites", ""),
-            ("Chicken Caesar Wrap", "Grilled chicken, romaine lettuce, parmesan, and Caesar dressing in a flour tortilla.", 10.00, "Quick Bites", ""),
-            ("Açaí Bowl", "Blended açaí topped with granola, fresh berries, and a drizzle of honey.", 13.00, "Healthy Choices", ""),
-            ("Seared Scallops", "Pan-seared scallops served over a bed of creamy risotto.", 32.00, "Fine Dining", ""),
-            ("Pancakes", "Fluffy buttermilk pancakes topped with maple syrup and butter.", 8.00, "Midnight Cravings", ""),
-            ("Pad Thai", "Stir-fried rice noodles with eggs, peanuts, bean sprouts, and your choice of protein.", 14.00, "Trending", ""),
-            ("Tiramisu", "Classic Italian dessert made with coffee-soaked ladyfingers and mascarpone cheese.", 8.50, "Desserts", ""),
+        # Exact product list from user
+        # Format: (name, category, price)
+        user_products = [
+            ("Water", "Drinks", 1500),
+            ("Sprite", "Drinks", 2000),
+            ("Coca Cola", "Drinks", 2000),
+            ("Thums Up", "Drinks", 2000),
+            ("Ultimate Cheesecake Frappe", "Coffee", 12000),
+            ("Crunchy Frappe", "Coffee", 12500),
+            ("Cold Devils Own", "Coffee", 10000),
+            ("Turmeric Ginger King Cappuccino", "Coffee", 7500),
+            ("White Chocolate King Cappuccino", "Coffee", 11000),
+            ("Filter Coffee", "Coffee", 159),
+            ("King Latte", "Coffee", 189),
+            ("Aloo Tikki Burger", "Burger", 59),
+            ("Manchow soup", "Appetizers, Starters & Party Food", 99),
+            ("Cheese Uttapam", "South Indian", 150),
+            ("Paper Dosa", "South Indian", 50),
+            ("Masala Uttapa", "South Indian", 100),
+            ("Paper Masala Dosa", "South Indian", 135),
+            ("Onion Uttapa", "South Indian", 89),
+            ("Upama", "South Indian", 70),
+            ("Vada Sambhar", "South Indian", 55),
+            ("Idli Sambhar", "South Indian", 55),
+            ("Veg Cutlet", "Appetizers, Starters & Party Food", 79),
+            ("French fries", "Appetizers, Starters & Party Food", 79),
+            ("Paneer Chilly", "Appetizers, Starters & Party Food", 125),
+            ("Veg Manchurian", "Appetizers, Starters & Party Food", 120),
+            ("Punjabi Samosa", "Appetizers, Starters & Party Food", 55),
+            ("Khandvi", "Appetizers, Starters & Party Food", 75),
+            ("Cream of Broccoli Soup", "Appetizers, Starters & Party Food", 111),
+            ("Chicken Pakora", "Appetizers, Starters & Party Food", 149),
+            ("Cranberry Brie Bites", "Appetizers, Starters & Party Food", 78),
+            ("Crispy Baked Chicken Wings", "Appetizers, Starters & Party Food", 149),
+            ("Vegetarian Sausage Rolls", "Appetizers, Starters & Party Food", 99),
+            ("Roasted Vegetable Soup", "Appetizers, Starters & Party Food", 124),
+            ("Onion Bhaji", "Appetizers, Starters & Party Food", 150),
+            ("Coconut Shrimp", "Appetizers, Starters & Party Food", 250),
+            ("Non-veg Capsicum pizza", "Pizza", 110),
+            ("Capsicum pizza", "Pizza", 75),
+            ("Non-veg Margherita pizza", "Pizza", 175),
+            ("Margherita pizza", "Pizza", 150),
+            ("Non-veg Loaded pizza", "Pizza", 200),
+            ("Veg Loaded pizza", "Pizza", 135),
+            ("Non-veg Paneer pizza", "Pizza", 170),
+            ("Non-veg tomato pizza", "Pizza", 150),
+            ("Masala Dosa", "South Indian", 110),
+            ("paneer pizza", "Pizza", 18500),
+            ("tomato pizza", "Pizza", 25000),
         ]
 
-        # Generate more combinations to reach ~50
-        adjectives = ["Spicy", "Crispy", "Grilled", "Roasted", "Fresh", "Classic", "Premium", "Signature", "Homemade", "Authentic"]
-        base_foods = ["Chicken Wings", "Beef Burger", "Pork Ribs", "Vegetable Curry", "Fried Rice", "Noodle Soup", "Fish and Chips", "Pasta Alfredo", "Mushroom Risotto", "Greek Salad"]
-        
-        for adj in adjectives:
-            for base in base_foods:
-                if len(foods) >= 55:
-                    break
-                cat = random.choice(categories)
-                name = f"{adj} {base}"
-                foods.append((name, f"A delicious {name.lower()} prepared with our secret recipe.", random.uniform(8.0, 45.0), cat, ""))
+        # Load reference metadata for images and descriptions
+        ref_prods = {}
+        ref_path = os.path.join(settings.BASE_DIR, 'reference_products.json')
+        if os.path.exists(ref_path):
+            for enc in ['utf-16', 'utf-8', 'latin-1']:
+                try:
+                    with open(ref_path, 'r', encoding=enc) as f:
+                        data = json.load(f)
+                        for item in data:
+                            ref_prods[item['product_name'].lower()] = item
+                        break
+                except: continue
+
+        # Clear existing products to ensure clean slate for user categories
+        Product.objects.all().delete()
 
         count = 0
-        for name, desc, price, cat, img in foods:
-            rating = round(random.uniform(3.5, 5.0), 1)
-            prep_time = random.choice(["10-15 min", "15-20 min", "20-30 min", "30-45 min"])
-            is_available = random.random() > 0.1 # 90% availability
+        for name, cat, price in user_products:
+            ref = ref_prods.get(name.lower(), {})
+            desc = ref.get('desc', f"Premium {name} from our {cat} selection.")
+            img = ref.get('image', '').replace('shop/images/', 'images/')
             
-            prod, created = Product.objects.get_or_create(
+            # Use original price if provided, otherwise estimate TZS factor
+            final_price = float(price)
+            if final_price > 500:
+                final_price = final_price / 2500.0 # Standardizing to "USD" internally as per project convention
+            
+            rating = round(random.uniform(4.0, 5.0), 1)
+            prep_time = random.choice(["10-15 min", "15-20 min", "20-30 min"])
+
+            Product.objects.create(
                 name=name,
                 restaurant=restaurant,
-                defaults={
-                    'description': desc,
-                    'price': round(price, 2),
-                    'category': cat,
-                    'rating': rating,
-                    'preparation_time': prep_time,
-                    'is_available': is_available
-                }
+                description=desc,
+                price=round(final_price, 2),
+                category=cat,
+                rating=rating,
+                preparation_time=prep_time,
+                image=img,
+                is_available=True
             )
-            # Update fields if it already existed but was missing image or new fields
-            if img and not prod.image:
-                prod.image = img
-            prod.rating = rating
-            prod.preparation_time = prep_time
-            prod.is_available = is_available
-            prod.save()
             count += 1
 
-        self.stdout.write(self.style.SUCCESS(f"Successfully seeded {count} products."))
+        self.stdout.write(self.style.SUCCESS(f"Successfully seeded {count} user-specified products."))
