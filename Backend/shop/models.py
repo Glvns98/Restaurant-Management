@@ -114,6 +114,18 @@ class Contact(models.Model):
     def __str__(self):
         return f"Message from {self.name}"
 
+class UserProfile(models.Model):
+    ROLE_CHOICES = [
+        ('ADMIN', 'Admin'),
+        ('EMPLOYEE', 'Employee'),
+        ('CUSTOMER', 'Customer'),
+    ]
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='CUSTOMER')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.role}"
+
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
     title = models.CharField(max_length=150, default="Notification")

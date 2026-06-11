@@ -219,11 +219,11 @@
             </a>
 </div>
 <!-- Navigation Links (Desktop) -->
-<div class="hidden md:flex items-center gap-8">
-<a class="font-label-md text-label-md text-primary font-bold border-b-2 border-primary pb-1" href="/search/">Discover</a>
-<a class="font-label-md text-label-md text-secondary font-medium hover:text-primary transition-colors" href="/search/?category=Trending">Trending</a>
+<nav class="flex items-center gap-8">
+<a class="font-label-md text-label-md text-primary font-bold border-b-2 border-primary pb-1" href="/">Discover</a>
+<a class="font-label-md text-label-md text-secondary font-medium hover:text-primary transition-colors" href="/search/">Trending</a>
 <a class="font-label-md text-label-md text-secondary font-medium hover:text-primary transition-colors" href="/tracker/">Orders</a>
-</div>
+</nav>
 <!-- Actions -->
 <div class="flex items-center gap-4">
 <div class="group relative">
@@ -301,48 +301,42 @@
 <section class="mt-24 animate-fade-up delay-100">
 <div class="flex justify-between items-end mb-8">
 <div>
-<h2 class="font-headline-lg text-headline-lg text-on-background">Curated Collections</h2>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Categories</h2>
 <p class="font-body-md text-body-md text-secondary mt-2">Find exactly what you're hungry for.</p>
 </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[250px]">
-<!-- Fine Dining (Large span) -->
-<a class="relative col-span-1 md:col-span-2 row-span-2 rounded-[1.5rem] overflow-hidden group shadow-ambient hover:shadow-hover transition-all duration-300 transform hover:-translate-y-1" href="/search/?category=Fine+Dining">
-<img alt="An elegant fine dining setting showing a meticulously plated steak dish garnished with microgreens and delicate sauces. The lighting is moody and dramatic, focusing on the textures of the perfectly seared meat against a stark white, modern ceramic plate. The background is softly blurred, hinting at a sophisticated, high-end restaurant atmosphere. The color palette emphasizes rich, deep browns, vibrant greens, and crisp whites, aligning with a premium gastronomic aesthetic." class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An elegant fine dining setting showing a meticulously plated steak dish garnished with microgreens and delicate sauces. The lighting is moody and dramatic, focusing on the textures of the perfectly seared meat against a stark white, modern ceramic plate. The background is softly blurred, hinting at a sophisticated, high-end restaurant atmosphere. The color palette emphasizes rich, deep browns, vibrant greens, and crisp whites, aligning with a premium gastronomic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8SRYYiSgmgNJCYNUUZJsJqZ2UIeOrM8vMiPGgIjLgEoJlDqJwK5VCIyfWikSegHbrlG-nncJaW9W5zfNVefKpJdhlfJS3oA7aHRDMWNf8xBLuWuKNNLMXzVBbmDrJDYxnGWxbkxQ357fjqeU0r78858dprlLgxuuDKCW6g172qzvLZota-93DA-isaluFsFrPH9ZGs4Kei3yxkmsOc1yPoNzuWECU7JXvS2X9BNpkul1MTILJZRlN_nKC7qUFF086WFOCKDTSnVza"/>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
+<!-- Coffee -->
+<a class="relative rounded-[1.5rem] overflow-hidden group shadow-ambient hover:shadow-hover transition-all duration-300 transform hover:-translate-y-1" href="/search/?category=Coffee">
+<img alt="Premium Coffee" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="/media/images/Filter_Coffee.jfif"/>
 <div class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/20 to-transparent"></div>
 <div class="absolute bottom-0 left-0 p-8 w-full">
 <div class="glass-panel rounded-xl p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-<h3 class="font-headline-md text-headline-md text-on-background mb-2">Fine Dining</h3>
-<p class="font-body-md text-body-md text-secondary">Michelin-quality experiences delivered to your door.</p>
-<span class="inline-flex items-center gap-1 mt-4 text-primary font-label-md text-label-md group-hover:underline decoration-2 underline-offset-4">
-                                Explore Selection <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</span>
+<h3 class="font-headline-md text-headline-md text-on-background mb-2">Coffee</h3>
+<p class="font-body-md text-body-md text-secondary">Artisanal brews for the modern epicurean.</p>
 </div>
 </div>
 </a>
-<!-- Quick Bites -->
-<a class="relative col-span-1 md:col-span-2 row-span-1 rounded-[1.5rem] overflow-hidden group shadow-ambient hover:shadow-hover transition-all duration-300 transform hover:-translate-y-1" href="/search/?category=Quick+Bites">
-<img alt="A vibrant, overhead shot of gourmet artisanal pizza and high-end street food, brightly lit to emphasize the appetizing colors. The crust is perfectly blistered, topped with fresh mozzarella, basil, and a drizzle of rich olive oil. The setting is clean and modern, featuring an Epicurean Modern aesthetic with stark contrasts between the colorful food and a minimalist white marble surface. The overall mood is energetic, fresh, and irresistibly craving-inducing." class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A vibrant, overhead shot of gourmet artisanal pizza and high-end street food, brightly lit to emphasize the appetizing colors. The crust is perfectly blistered, topped with fresh mozzarella, basil, and a drizzle of rich olive oil. The setting is clean and modern, featuring an Epicurean Modern aesthetic with stark contrasts between the colorful food and a minimalist white marble surface. The overall mood is energetic, fresh, and irresistibly craving-inducing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB5v3L6_kEEZueJsQxvGIkZ0IWhDGuvYVlzMZqyjmh6nq4gDmrUpI6rUT6uSsaFnrwbZm9Kpn3X947XpMeBvK7onfgqjsH4cNjZXEiblnxP4nINbBWND-Z8U8saQ7zDPWSB_FNCQe0xFNJsofhbS8ST7tIm5RSFt1R1toJ9659f834UI87ve8PQvU9xTMOhSzKgjbNPdhugJIJtNZ_GcGZKg5KaIxILGHrzZ3lowF0GtCQJx9Q4f8XC_dAxzCbu_HIKc6A5JM_DnxA"/>
-<div class="absolute inset-0 bg-gradient-to-r from-on-background/80 to-transparent"></div>
-<div class="absolute inset-y-0 left-0 p-8 flex flex-col justify-center">
-<h3 class="font-headline-md text-headline-md text-surface-bright mb-2">Quick Bites</h3>
-<p class="font-body-md text-body-md text-surface-dim max-w-xs">Artisanal fast-casual for the busy connoisseur.</p>
+<!-- Pizza -->
+<a class="relative rounded-[1.5rem] overflow-hidden group shadow-ambient hover:shadow-hover transition-all duration-300 transform hover:-translate-y-1" href="/search/?category=Pizza">
+<img alt="Artisanal Pizza" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="/media/images/margherita-pizza.jpeg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<div class="glass-panel rounded-xl p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="font-headline-md text-headline-md text-on-background mb-2">Pizza</h3>
+<p class="font-body-md text-body-md text-secondary">Perfectly blistered crusts and fresh toppings.</p>
+</div>
 </div>
 </a>
-<!-- Healthy Choices -->
-<a class="relative col-span-1 row-span-1 rounded-[1.5rem] overflow-hidden group shadow-ambient hover:shadow-hover transition-all duration-300 transform hover:-translate-y-1" href="/search/?category=Healthy+Choices">
-<img alt="A bright, clean composition featuring a vibrant, fresh superfood salad bowl packed with quinoa, avocado, bright red cherry tomatoes, and microgreens. The lighting is high-key and crisp, casting soft, flattering shadows that evoke a healthy, energizing lifestyle. The minimalist background highlights the vivid, natural colors of the ingredients, perfectly aligning with a modern, clean-eating aesthetic and the Epicurean Modern design style." class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A bright, clean composition featuring a vibrant, fresh superfood salad bowl packed with quinoa, avocado, bright red cherry tomatoes, and microgreens. The lighting is high-key and crisp, casting soft, flattering shadows that evoke a healthy, energizing lifestyle. The minimalist background highlights the vivid, natural colors of the ingredients, perfectly aligning with a modern, clean-eating aesthetic and the Epicurean Modern design style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIB8BPuXtCrRvvr1OwUSLzNyBF0H7upVUlKd-rQTcTCK86rOT9HY_YcPP0ip7b5fggsPIXLlhuBvjhFAuVQCsNuHfByDVZxwcfZ0CGkmq2AgLeW9Zd2ADo44Yqn6kuYlzO6ljI-APS3nGJz5J7Ve-wOCtR-7QBfI_uwUZ3VNr55V6mx9fhe4AIHdsMOlC9jZHLOBUz3gPOdZ3L3232eb1jyyUqiH_kM6rHi42sTdJssr5Tb72qK58-J_d4iLT9vN7WV_TvNjRTK3Ro"/>
-<div class="absolute inset-0 bg-gradient-to-t from-on-background/80 to-transparent"></div>
-<div class="absolute bottom-0 left-0 p-6 w-full">
-<h3 class="font-headline-md text-headline-md text-surface-bright">Healthy Choices</h3>
+<!-- Appetizers, Starters & Party Food -->
+<a class="relative rounded-[1.5rem] overflow-hidden group shadow-ambient hover:shadow-hover transition-all duration-300 transform hover:-translate-y-1" href="/search/?category=Appetizers%2C%20Starters%20%26%20Party%20Food">
+<img alt="Appetizers, Starters & Party Food" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="/media/images/Punjabi-samosa.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<div class="glass-panel rounded-xl p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="font-headline-md text-headline-md text-on-background mb-2">Appetizers, Starters &amp; Party Food</h3>
+<p class="font-body-md text-body-md text-secondary">Bite-sized delights for any occasion.</p>
 </div>
-</a>
-<!-- Midnight Cravings -->
-<a class="relative col-span-1 row-span-1 rounded-[1.5rem] overflow-hidden group shadow-ambient hover:shadow-hover transition-all duration-300 transform hover:-translate-y-1 bg-inverse-surface" href="/search/?category=Midnight+Cravings">
-<img alt="A decadent, rich chocolate dessert, oozing with molten center, set against a dark, moody background. The lighting is dramatic, highlighting the glossy texture of the chocolate and a dusting of powdered sugar. The atmosphere is indulgent and slightly mysterious, perfectly capturing the essence of a premium late-night indulgence. The visual style uses deep shadows and warm, subtle highlights to evoke craving and sophistication." class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-105 group-hover:opacity-80" data-alt="A decadent, rich chocolate dessert, oozing with molten center, set against a dark, moody background. The lighting is dramatic, highlighting the glossy texture of the chocolate and a dusting of powdered sugar. The atmosphere is indulgent and slightly mysterious, perfectly capturing the essence of a premium late-night indulgence. The visual style uses deep shadows and warm, subtle highlights to evoke craving and sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo0A05lzfRDOicZ8u0pnAMSlVWrlzJGguCP0Lme4Y9iLbeKRSe4k9qg7c4YFNHPA7Jf2qmxyuCQK27lcbgPMr4co08ji-t8KNVu9OZXexEj-Ytc4XpVTKu-Scc3-ZpSoyAuaw7Sta_EJcLhlEI6uSI5XBjQjpvDkO81kY9MzLC-QHB9MsQ5Uej0SPFVX-jmA80g29hSGeti9zcyFLiI_FFD_QsmYuAU7SJTtyDZBrvWyP2VOxRWZu7lzPb7fcArVZMoz3PdpJfmzaG"/>
-<div class="absolute inset-0 bg-gradient-to-t from-on-background/90 to-transparent"></div>
-<div class="absolute bottom-0 left-0 p-6 w-full">
-<h3 class="font-headline-md text-headline-md text-surface-bright">Midnight Cravings</h3>
 </div>
 </a>
 </div>
@@ -481,6 +475,7 @@
 </div>
 <div class="flex flex-wrap gap-6 md:gap-8">
 <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary transition-colors hover:underline decoration-primary-fixed underline-offset-4" href="/about/">About Us</a>
+<a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary transition-colors hover:underline decoration-primary-fixed underline-offset-4" href="/contact/">Contact Us</a>
 <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary transition-colors hover:underline decoration-primary-fixed underline-offset-4" href="/sustainability/">Sustainability</a>
 <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary transition-colors hover:underline decoration-primary-fixed underline-offset-4" href="/partner/">Partner with Us</a>
 <a class="font-label-md text-label-md text-secondary-fixed-dim hover:text-on-secondary transition-colors hover:underline decoration-primary-fixed underline-offset-4" href="/terms/">Terms of Service</a>
@@ -518,7 +513,7 @@
                             <div class="flex-none w-[280px] md:w-[320px] snap-center group">
                                 <div class="bg-surface rounded-2xl p-4 shadow-ambient group-hover:shadow-hover group-hover:border-primary/10 border border-transparent transition-all duration-300 h-full flex flex-col">
                                     <div class="relative h-48 rounded-[1.5rem] overflow-hidden mb-4">
-                                        <img alt="${product.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="${product.image_url || product.image}"/>
+                                        <img alt="${product.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="${product.image_url || product.image || 'https://via.placeholder.com/400'}"/>
                                         ${product.subcategory ? `
                                             <div class="absolute top-3 left-3 bg-primary-container/90 backdrop-blur-sm text-on-primary-container px-3 py-1 rounded-full font-label-sm text-label-sm font-bold flex items-center gap-1">
                                                 <span class="material-symbols-outlined text-[14px] icon-fill">local_fire_department</span> ${product.subcategory}

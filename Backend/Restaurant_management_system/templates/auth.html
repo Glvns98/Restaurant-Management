@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - The Food Mania</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "background": "#f9f9ff",
+                "on-background": "#151c27",
+                "surface": "#f9f9ff",
+                "on-surface": "#151c27",
+                "primary": "#855300",
+                "secondary": "#555f6f",
+                "secondary-fixed-dim": "#bdc7d9",
+                "on-secondary": "#ffffff",
+                "outline-variant": "#d8c3ad",
+                "surface-glass": "rgba(255, 255, 255, 0.8)",
+                "primary-fixed": "#ffddb8",
+                "primary-container": "#f59e0b",
+              },
+              fontFamily: {
+                "headline-md": ["Montserrat"],
+                "display-lg": ["Montserrat"],
+                "body-md": ["Inter"],
+                "label-md": ["Inter"]
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up { animation: fadeUp 0.6s ease-out forwards; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+    <header class="bg-surface-glass backdrop-blur-xl shadow-sm sticky top-0 w-full z-50 flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+        <a href="/" class="font-headline-md text-2xl font-black text-primary hover:opacity-80 transition-opacity">The Food Mania</a>
+        <a href="/" class="text-secondary hover:text-primary transition-colors flex items-center gap-2 group">
+            <span class="material-symbols-outlined text-xl group-hover:-translate-x-1 transition-transform">arrow_back</span>
+            <span class="font-label-md text-sm font-semibold">Back to Discovery</span>
+        </a>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-6">
+        <div class="w-full max-w-md animate-fade-up">
+            <!-- Tabs -->
+            <div class="flex gap-4 mb-8">
+                <button id="signInTab" onclick="showSection('signin')" class="flex-1 py-3 text-center font-bold border-b-2 border-primary text-primary transition-all">Sign In</button>
+                <button id="signUpTab" onclick="showSection('signup')" class="flex-1 py-3 text-center font-bold border-b-2 border-transparent text-secondary hover:text-primary transition-all">Sign Up</button>
+            </div>
+
+            <!-- Sign In Section -->
+            <section id="signinSection" class="glass-panel p-8 rounded-2xl shadow-xl">
+                <h2 class="font-display-lg text-2xl font-bold mb-6 text-primary">Welcome Back</h2>
+                <form id="signinForm" class="flex flex-col gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Username</label>
+                        <input type="text" id="signinUsername" required class="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary bg-white/50">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Password</label>
+                        <input type="password" id="signinPassword" required class="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary bg-white/50">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Login As</label>
+                        <select id="signinRole" class="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary bg-white/50">
+                            <option value="CUSTOMER" selected>Customer</option>
+                            <option value="EMPLOYEE">Employee</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="bg-primary text-white font-bold py-3 rounded-lg hover:bg-opacity-90 transition-all active:scale-95 shadow-md">Sign In</button>
+                </form>
+                <p class="mt-6 text-center text-sm text-secondary">
+                    Don't have an account? <button onclick="showSection('signup')" class="text-primary font-bold hover:underline">Create one</button>
+                </p>
+            </section>
+
+            <!-- Sign Up Section -->
+            <section id="signupSection" class="hidden glass-panel p-8 rounded-2xl shadow-xl">
+                <h2 class="font-display-lg text-2xl font-bold mb-6 text-primary">Create Account</h2>
+                <form id="signupForm" class="flex flex-col gap-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold mb-1">First Name</label>
+                            <input type="text" id="signupFirstName" required class="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary bg-white/50">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-1">Last Name</label>
+                            <input type="text" id="signupLastName" required class="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary bg-white/50">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Username</label>
+                        <input type="text" id="signupUsername" required class="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary bg-white/50">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Email</label>
+                        <input type="email" id="signupEmail" required class="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary bg-white/50">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Password</label>
+                        <input type="password" id="signupPassword" required class="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary bg-white/50">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Confirm Password</label>
+                        <input type="password" id="signupPasswordConfirm" required class="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary bg-white/50">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Register As</label>
+                        <select id="signupRole" class="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary bg-white/50">
+                            <option value="CUSTOMER" selected>Customer</option>
+                            <option value="EMPLOYEE">Employee</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="bg-primary text-white font-bold py-3 rounded-lg hover:bg-opacity-90 transition-all active:scale-95 shadow-md">Create Account</button>
+                </form>
+                <p class="mt-6 text-center text-sm text-secondary">
+                    Already have an account? <button onclick="showSection('signin')" class="text-primary font-bold hover:underline">Sign In</button>
+                </p>
+            </section>
+
+            <div id="statusMessage" class="hidden mt-4 p-4 rounded-lg text-center font-bold"></div>
+        </div>
+    </main>
+
+    <script>
+        function showSection(section) {
+            const signin = document.getElementById('signinSection');
+            const signup = document.getElementById('signupSection');
+            const signinTab = document.getElementById('signInTab');
+            const signupTab = document.getElementById('signUpTab');
+            const status = document.getElementById('statusMessage');
+
+            status.classList.add('hidden');
+
+            if (section === 'signin') {
+                signin.classList.remove('hidden');
+                signup.classList.add('hidden');
+                signinTab.className = "flex-1 py-3 text-center font-bold border-b-2 border-primary text-primary transition-all";
+                signupTab.className = "flex-1 py-3 text-center font-bold border-b-2 border-transparent text-secondary hover:text-primary transition-all";
+            } else {
+                signup.classList.remove('hidden');
+                signin.classList.add('hidden');
+                signupTab.className = "flex-1 py-3 text-center font-bold border-b-2 border-primary text-primary transition-all";
+                signinTab.className = "flex-1 py-3 text-center font-bold border-b-2 border-transparent text-secondary hover:text-primary transition-all";
+            }
+        }
+
+        // Sign In Logic
+        document.getElementById('signinForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const status = document.getElementById('statusMessage');
+            const role = document.getElementById('signinRole').value;
+            
+            const data = {
+                username: document.getElementById('signinUsername').value,
+                password: document.getElementById('signinPassword').value
+            };
+
+            fetch('/shop/api/signin/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    status.textContent = data.error;
+                    status.className = "mt-4 p-4 bg-red-100 text-red-800 rounded-lg text-center font-bold";
+                    status.classList.remove('hidden');
+                } else {
+                    status.textContent = "Login Successful! Redirecting...";
+                    status.className = "mt-4 p-4 bg-green-100 text-green-800 rounded-lg text-center font-bold";
+                    status.classList.remove('hidden');
+                    
+                    // Redirect based on actual role from profile
+                    setTimeout(() => {
+                        if (data.role === 'ADMIN') window.location.href = '/admin-dashboard/';
+                        else if (data.role === 'EMPLOYEE') window.location.href = '/employee-dashboard/';
+                        else window.location.href = '/';
+                    }, 1000);
+                }
+            });
+        });
+
+        // Sign Up Logic
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const status = document.getElementById('statusMessage');
+            
+            const data = {
+                username: document.getElementById('signupUsername').value,
+                first_name: document.getElementById('signupFirstName').value,
+                last_name: document.getElementById('signupLastName').value,
+                email: document.getElementById('signupEmail').value,
+                password: document.getElementById('signupPassword').value,
+                password_confirm: document.getElementById('signupPasswordConfirm').value,
+                role: document.getElementById('signupRole').value
+            };
+
+            fetch('/shop/api/signup/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.message) {
+                    status.textContent = "Account created! Please sign in.";
+                    status.className = "mt-4 p-4 bg-green-100 text-green-800 rounded-lg text-center font-bold";
+                    status.classList.remove('hidden');
+                    setTimeout(() => showSection('signin'), 2000);
+                } else {
+                    const errorMsg = Object.values(data)[0];
+                    status.textContent = Array.isArray(errorMsg) ? errorMsg[0] : "Error creating account";
+                    status.className = "mt-4 p-4 bg-red-100 text-red-800 rounded-lg text-center font-bold";
+                    status.classList.remove('hidden');
+                }
+            });
+        });
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+</html>

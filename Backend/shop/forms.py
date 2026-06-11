@@ -18,6 +18,7 @@ class CheckoutForm(forms.ModelForm):
 class SignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     password_confirm = forms.CharField(widget=forms.PasswordInput())
+    role = forms.ChoiceField(choices=[('ADMIN', 'Admin'), ('EMPLOYEE', 'Employee'), ('CUSTOMER', 'Customer')], initial='CUSTOMER')
 
     class Meta:
         model = User

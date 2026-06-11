@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Orders, OrderUpdate, Cart, CartItem, Notification
+from .models import Product, Orders, OrderUpdate, Cart, CartItem, Notification, Contact
 
 class ProductSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
@@ -48,3 +48,8 @@ class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
         fields = ['id', 'user', 'title', 'message', 'is_read', 'timestamp']
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['id', 'name', 'email', 'phone', 'message', 'timestamp']

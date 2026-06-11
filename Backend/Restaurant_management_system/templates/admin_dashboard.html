@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - The Food Mania</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "background": "#f9f9ff",
+                "on-background": "#151c27",
+                "surface": "#f9f9ff",
+                "on-surface": "#151c27",
+                "primary": "#855300",
+                "secondary": "#555f6f",
+                "secondary-fixed-dim": "#bdc7d9",
+                "on-secondary": "#ffffff",
+                "outline-variant": "#d8c3ad",
+                "surface-glass": "rgba(255, 255, 255, 0.8)",
+                "primary-fixed": "#ffddb8",
+                "primary-container": "#f59e0b",
+              },
+              fontFamily: {
+                "headline-md": ["Montserrat"],
+                "display-lg": ["Montserrat"],
+                "body-md": ["Inter"],
+                "label-md": ["Inter"]
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+    <header class="bg-surface-glass backdrop-blur-xl shadow-sm sticky top-0 w-full z-50 flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+        <div class="flex items-center gap-4">
+            <a href="/" class="font-headline-md text-2xl font-black text-primary hover:opacity-80 transition-opacity">The Food Mania</a>
+            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Admin</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="/employee-dashboard/" class="text-secondary hover:text-primary font-semibold text-sm transition-colors">Employee View</a>
+            <button onclick="handleLogout()" class="text-secondary hover:text-error font-semibold text-sm transition-colors flex items-center gap-2">
+                <span class="material-symbols-outlined text-lg">logout</span> Logout
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-12">
+        <h1 class="font-display-lg text-3xl font-bold mb-10 text-primary">System Overview</h1>
+        
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="glass-panel p-8 rounded-2xl shadow-sm flex flex-col items-center text-center">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
+                    <span class="material-symbols-outlined">payments</span>
+                </div>
+                <p class="text-secondary text-sm font-bold uppercase mb-1">Total Revenue</p>
+                <h2 id="statRevenue" class="font-display-lg text-3xl font-black">Calculating...</h2>
+            </div>
+            <div class="glass-panel p-8 rounded-2xl shadow-sm flex flex-col items-center text-center">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
+                    <span class="material-symbols-outlined">shopping_bag</span>
+                </div>
+                <p class="text-secondary text-sm font-bold uppercase mb-1">Total Orders</p>
+                <h2 id="statOrders" class="font-display-lg text-3xl font-black">Calculating...</h2>
+            </div>
+            <div class="glass-panel p-8 rounded-2xl shadow-sm flex flex-col items-center text-center">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
+                    <span class="material-symbols-outlined">restaurant_menu</span>
+                </div>
+                <p class="text-secondary text-sm font-bold uppercase mb-1">Active Products</p>
+                <h2 id="statProducts" class="font-display-lg text-3xl font-black">Calculating...</h2>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Recent Activity -->
+            <section class="glass-panel p-8 rounded-2xl shadow-sm">
+                <h3 class="font-headline-md text-xl font-bold mb-6">Recent Orders</h3>
+                <div id="recentOrders" class="flex flex-col gap-4">
+                    <p class="text-secondary italic">Fetching latest data...</p>
+                </div>
+                <button onclick="window.location.href='/employee-dashboard/'" class="mt-8 text-primary font-bold hover:underline flex items-center gap-2">
+                    Manage All Orders <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+            </section>
+
+            <!-- Management Actions -->
+            <section class="flex flex-col gap-8">
+                <div class="glass-panel p-8 rounded-2xl shadow-sm">
+                    <h3 class="font-headline-md text-xl font-bold mb-6">Quick Actions</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="bg-white/50 border border-outline-variant p-4 rounded-xl hover:bg-primary/5 hover:border-primary transition-all text-left flex flex-col gap-2">
+                            <span class="material-symbols-outlined text-primary">add_circle</span>
+                            <span class="font-bold text-sm">Add New Product</span>
+                        </button>
+                        <button class="bg-white/50 border border-outline-variant p-4 rounded-xl hover:bg-primary/5 hover:border-primary transition-all text-left flex flex-col gap-2">
+                            <span class="material-symbols-outlined text-primary">person_add</span>
+                            <span class="font-bold text-sm">Create Staff User</span>
+                        </button>
+                        <button class="bg-white/50 border border-outline-variant p-4 rounded-xl hover:bg-primary/5 hover:border-primary transition-all text-left flex flex-col gap-2">
+                            <span class="material-symbols-outlined text-primary">analytics</span>
+                            <span class="font-bold text-sm">Export Reports</span>
+                        </button>
+                        <button class="bg-white/50 border border-outline-variant p-4 rounded-xl hover:bg-primary/5 hover:border-primary transition-all text-left flex flex-col gap-2">
+                            <span class="material-symbols-outlined text-primary">settings</span>
+                            <span class="font-bold text-sm">System Settings</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="w-full py-12 px-6 mt-16 border-t border-outline-variant/20 bg-secondary flex justify-center">
+        <p class="text-on-secondary font-body-md text-center">© 2024 The Food Mania. Admin Interface.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/shop/api/admin/dashboard/')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.error) {
+                        window.location.href = '/auth/';
+                        return;
+                    }
+                    document.getElementById('statRevenue').textContent = Number(data.stats.total_revenue * 2500).toLocaleString('en-TZ', {style: 'currency', currency: 'TZS', maximumFractionDigits: 0});
+                    document.getElementById('statOrders').textContent = data.stats.total_orders;
+                    document.getElementById('statProducts').textContent = data.stats.total_products;
+                });
+
+            fetch('/shop/api/employee/dashboard/')
+                .then(res => res.json())
+                .then(orders => {
+                    const list = document.getElementById('recentOrders');
+                    if (orders.length === 0) {
+                        list.innerHTML = '<p class="text-secondary">No orders to display.</p>';
+                        return;
+                    }
+                    list.innerHTML = orders.slice(0, 5).map(o => `
+                        <div class="flex justify-between items-center p-4 bg-white/40 rounded-xl border border-outline-variant/30">
+                            <div>
+                                <p class="font-bold text-sm">#${o.order_id.substring(0,8)}</p>
+                                <p class="text-xs text-secondary">${o.name}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-primary text-sm">${Number(o.amount * 2500).toLocaleString('en-TZ', {style: 'currency', currency: 'TZS', maximumFractionDigits: 0})}</p>
+                                <p class="text-[10px] uppercase font-black text-secondary">${o.status_display}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                });
+        });
+
+        function handleLogout() {
+            fetch('/shop/api/logout/', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getCookie('csrftoken') }
+            }).then(() => window.location.href = '/auth/');
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+</html>

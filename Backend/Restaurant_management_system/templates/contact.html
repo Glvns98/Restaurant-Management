@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - The Food Mania</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "background": "#f9f9ff",
+                "on-background": "#151c27",
+                "surface": "#f9f9ff",
+                "on-surface": "#151c27",
+                "primary": "#855300",
+                "secondary": "#555f6f",
+                "secondary-fixed-dim": "#bdc7d9",
+                "on-secondary": "#ffffff",
+                "outline-variant": "#d8c3ad",
+                "surface-glass": "rgba(255, 255, 255, 0.8)",
+                "primary-fixed": "#ffddb8",
+                "primary-container": "#f59e0b",
+              },
+              fontFamily: {
+                "headline-md": ["Montserrat"],
+                "display-lg": ["Montserrat"],
+                "body-md": ["Inter"],
+                "label-md": ["Inter"]
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+    <!-- Minimal Header -->
+    <header class="bg-surface-glass backdrop-blur-xl shadow-sm sticky top-0 w-full z-50 flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+        <a href="/" class="font-headline-md text-2xl font-black text-primary hover:opacity-80 transition-opacity">The Food Mania</a>
+        <a href="/" class="text-secondary hover:text-primary transition-colors flex items-center gap-2 group">
+            <span class="material-symbols-outlined text-xl group-hover:-translate-x-1 transition-transform">arrow_back</span>
+            <span class="font-label-md text-sm font-semibold">Back to Home</span>
+        </a>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-6 py-12">
+        <h1 class="font-display-lg text-4xl font-bold mb-8 text-primary">Contact Us</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="glass-panel p-8 rounded-2xl shadow-sm flex flex-col gap-6">
+                <div>
+                    <h2 class="font-headline-md text-xl font-bold mb-2">Get in Touch</h2>
+                    <p class="text-secondary">Have a question or feedback? We'd love to hear from you.</p>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined">mail</span>
+                    </div>
+                    <div>
+                        <p class="font-bold">Email</p>
+                        <p class="text-secondary">support@thefoodmania.com</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined">call</span>
+                    </div>
+                    <div>
+                        <p class="font-bold">Phone</p>
+                        <p class="text-secondary">+255 123 456 789</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined">location_on</span>
+                    </div>
+                    <div>
+                        <p class="font-bold">Address</p>
+                        <p class="text-secondary">123 Culinary St, Dar es Salaam</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-8 rounded-2xl shadow-sm">
+                <form id="contactForm" class="flex flex-col gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1" for="name">Name</label>
+                        <input type="text" id="name" name="name" required class="w-full bg-surface border-outline-variant rounded-lg focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1" for="email">Email</label>
+                        <input type="email" id="email" name="email" required class="w-full bg-surface border-outline-variant rounded-lg focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1" for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" required class="w-full bg-surface border-outline-variant rounded-lg focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1" for="message">Message</label>
+                        <textarea id="message" name="message" rows="4" required class="w-full bg-surface border-outline-variant rounded-lg focus:ring-primary focus:border-primary"></textarea>
+                    </div>
+                    <button type="submit" class="bg-primary text-white font-bold py-3 rounded-lg hover:bg-opacity-90 transition-all active:scale-95">Send Message</button>
+                </form>
+                <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 text-green-800 rounded-lg text-center font-bold">
+                    Message sent successfully!
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-12 px-6 mt-16 border-t border-outline-variant/20 bg-secondary flex justify-center">
+        <p class="text-on-secondary font-body-md text-center">© 2024 The Food Mania. Epicurean Modernity.</p>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const successMsg = document.getElementById('successMessage');
+            
+            const data = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value
+            };
+            
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            
+            fetch('/shop/api/contact/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                successMsg.classList.remove('hidden');
+                e.target.reset();
+                btn.disabled = false;
+                btn.textContent = 'Send Message';
+                setTimeout(() => successMsg.classList.add('hidden'), 5000);
+            })
+            .catch(err => {
+                alert('Error sending message');
+                btn.disabled = false;
+                btn.textContent = 'Send Message';
+            });
+        });
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+</html>

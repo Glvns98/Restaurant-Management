@@ -28,12 +28,16 @@ urlpatterns = [
     path('search/', TemplateView.as_view(template_name='search.html'), name='search'),
     path('checkout/', TemplateView.as_view(template_name='checkout.html'), name='checkout'),
     path('tracker/', TemplateView.as_view(template_name='tracker.html'), name='tracker'),
+    path('auth/', TemplateView.as_view(template_name='auth.html'), name='auth'),
+    path('admin-dashboard/', TemplateView.as_view(template_name='admin_dashboard.html'), name='admin-dashboard'),
+    path('employee-dashboard/', TemplateView.as_view(template_name='employee_dashboard.html'), name='employee-dashboard'),
     
     # Footer Links
     path('about/', TemplateView.as_view(template_name='page.html', extra_context={
         'title': 'About Us', 
-        'content': '<h2 class="text-xl font-bold mb-4">Our Story</h2><p class="mb-4">The Food Mania is dedicated to delivering epicurean modernity straight to your door. We partner with top chefs and local artisans to bring you curated culinary experiences.</p>'
+        'content': '<h2 class="text-2xl font-bold mb-4">Our Story</h2><p class="mb-4">The Food Mania is dedicated to delivering epicurean modernity straight to your door. We partner with top chefs and local artisans to bring you curated culinary experiences.</p><h3 class="text-xl font-bold mb-2">Our Mission</h3><p class="mb-4">To be the number one choice for modern epicureans, providing bold, bright flavours rooted in the classics with a local twist.</p><h3 class="text-xl font-bold mb-2">Culinary Leadership</h3><p class="mb-4">Our menus, conceived by Chef David Hawksworth and his culinary team, showcase ingredient-led, contemporary cuisine that echoes nostalgia with a modern and local twist.</p>'
     }), name='about'),
+    path('contact/', TemplateView.as_view(template_name='contact.html'), name='contact'),
     path('sustainability/', TemplateView.as_view(template_name='page.html', extra_context={
         'title': 'Sustainability', 
         'content': '<h2 class="text-xl font-bold mb-4">Our Commitment</h2><p class="mb-4">We believe in sustainable food practices. All our packaging is 100% biodegradable and we actively work to reduce our carbon footprint with our delivery fleet.</p>'
