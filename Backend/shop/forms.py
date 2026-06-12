@@ -18,7 +18,12 @@ class CheckoutForm(forms.ModelForm):
 class SignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     password_confirm = forms.CharField(widget=forms.PasswordInput())
-    role = forms.ChoiceField(choices=[('ADMIN', 'Admin'), ('EMPLOYEE', 'Employee'), ('CUSTOMER', 'Customer')], initial='CUSTOMER')
+    role = forms.ChoiceField(choices=[('SELLER', 'Seller'), ('CUSTOMER', 'Customer')], initial='CUSTOMER')
+    phone = forms.CharField(required=False)
+    address = forms.CharField(required=False)
+    city = forms.CharField(required=False)
+    state = forms.CharField(required=False)
+    zip_code = forms.CharField(required=False)
 
     class Meta:
         model = User

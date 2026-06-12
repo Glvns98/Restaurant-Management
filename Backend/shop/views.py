@@ -98,17 +98,21 @@ class CartAPIView(views.APIView):
         product_id = request.data.get('product_id')
         action = request.data.get('action') # 'add', 'remove', 'clear'
         
-        if action == 'clear':
-            cart.items.all().delete()
-            return Response(CartSerializer(cart).data)
-            
         if not product_id:
             return Response({"error": "product_id is required"}, status=status.HTTP_400_BAD_REQUEST)
-            
+
         try:
             product = Product.objects.get(id=product_id)
         except Product.DoesNotExist:
             return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        if action == 'clear':
+            cart.items.all().delete()
+            return Response(CartSerializer(cart).data)
+
+        if action == 'remove_all':
+            CartItem.objects.filter(cart=cart, product=product).delete()
+            return Response(CartSerializer(cart).data)
             
         if action == 'add':
             item, created = CartItem.objects.get_or_create(cart=cart, product=product)
@@ -148,18 +152,21 @@ class CheckoutAPIView(views.APIView):
                 logger.warning(f"Checkout attempted with empty cart for user {request.user.username}")
                 return Response({"error": "Cart is empty"}, status=status.HTTP_400_BAD_REQUEST)
 
-            calculated_amount = 0
+            subtotal_amount = 0
             items_for_json = []
 
             for item in cart_items:
                 if item.product:
-                    calculated_amount += item.product.price * item.quantity
+                    subtotal_amount += item.product.price * item.quantity
                     items_for_json.append({
                         "id": item.product.id,
                         "name": item.product.name,
                         "qty": item.quantity,
                         "price": str(item.product.price)
                     })
+
+            service_charge = subtotal_amount * 0.05
+            calculated_amount = subtotal_amount + service_charge
 
             # Create Order
             order = Orders.objects.create(
@@ -343,9 +350,27 @@ class SignUpAPIView(views.APIView):
             password = form.cleaned_data.get('password')
             user.set_password(password)
             user.save()
+            
             role = form.cleaned_data.get('role', 'CUSTOMER')
-            UserProfile.objects.create(user=user, role=role)
-            return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED)
+            if role == 'ADMIN':
+                role = 'CUSTOMER' # Fallback for safety
+                
+            UserProfile.objects.create(
+                user=user, 
+                role=role,
+                phone=form.cleaned_data.get('phone', ''),
+                address=form.cleaned_data.get('address', ''),
+                city=form.cleaned_data.get('city', ''),
+                state=form.cleaned_data.get('state', ''),
+                zip_code=form.cleaned_data.get('zip_code', '')
+            )
+            
+            # Auto-login the user post-registration
+            user_auth = authenticate(request, username=user.username, password=password)
+            if user_auth is not None:
+                login(request, user_auth)
+            
+            return Response({"message": "User registered successfully", "role": role, "username": user.username}, status=status.HTTP_201_CREATED)
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SignInAPIView(views.APIView):
@@ -377,12 +402,23 @@ class UserProfileAPIView(views.APIView):
             "email": request.user.email,
             "first_name": request.user.first_name,
             "last_name": request.user.last_name,
-            "role": profile.role
+            "role": profile.role,
+            "phone": profile.phone,
+            "address": profile.address,
+            "city": profile.city,
+            "state": profile.state,
+            "zip_code": profile.zip_code
         })
 
+from django.shortcuts import redirect
+
 class LogoutAPIView(views.APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
+    def get(self, request):
+        logout(request)
+        return redirect('/')
+
     def post(self, request):
         logout(request)
         return Response({"message": "Logged out successfully"})
@@ -407,14 +443,14 @@ class AdminDashboardAPIView(views.APIView):
             }
         })
 
-class EmployeeDashboardAPIView(views.APIView):
+class SellerDashboardAPIView(views.APIView):
     permission_classes = [IsAuthenticated]
     
     def get(self, request):
-        if request.user.profile.role not in ['ADMIN', 'EMPLOYEE']:
+        if request.user.profile.role not in ['ADMIN', 'SELLER']:
             return Response({"error": "Unauthorized"}, status=status.HTTP_403_FORBIDDEN)
         
-        # Pending orders for employees
+        # Pending orders for sellers
         pending_orders = Orders.objects.filter(status__lt=9).order_by('-timestamp')
         return Response(OrderSerializer(pending_orders, many=True).data)
 

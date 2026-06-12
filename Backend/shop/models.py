@@ -117,11 +117,16 @@ class Contact(models.Model):
 class UserProfile(models.Model):
     ROLE_CHOICES = [
         ('ADMIN', 'Admin'),
-        ('EMPLOYEE', 'Employee'),
+        ('SELLER', 'Seller'),
         ('CUSTOMER', 'Customer'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='CUSTOMER')
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    state = models.CharField(max_length=100, blank=True, null=True)
+    zip_code = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"

@@ -71,7 +71,7 @@
                 
                 loadMoreBtn.innerHTML = 'Loading...';
                 
-                fetch(`/shop/api/products/?${params.toString()}`)
+                apiFetch(`/shop/api/products/?${params.toString()}`)
                     .then(res => res.json())
                     .then(data => {
                         const results = data.results || data;

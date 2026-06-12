@@ -19,5 +19,5 @@ urlpatterns = [
     path('api/profile/', views.UserProfileAPIView.as_view(), name='api-profile'),
     path('api/logout/', views.LogoutAPIView.as_view(), name='api-logout'),
     path('api/admin/dashboard/', views.AdminDashboardAPIView.as_view(), name='api-admin-dashboard'),
-    path('api/employee/dashboard/', views.EmployeeDashboardAPIView.as_view(), name='api-employee-dashboard'),
+    path('api/seller/dashboard/', views.SellerDashboardAPIView.as_view(), name='api-seller-dashboard'),
 ]

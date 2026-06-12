@@ -30,7 +30,7 @@ urlpatterns = [
     path('tracker/', TemplateView.as_view(template_name='tracker.html'), name='tracker'),
     path('auth/', TemplateView.as_view(template_name='auth.html'), name='auth'),
     path('admin-dashboard/', TemplateView.as_view(template_name='admin_dashboard.html'), name='admin-dashboard'),
-    path('employee-dashboard/', TemplateView.as_view(template_name='employee_dashboard.html'), name='employee-dashboard'),
+    path('seller-dashboard/', TemplateView.as_view(template_name='seller_dashboard.html'), name='seller-dashboard'),
     
     # Footer Links
     path('about/', TemplateView.as_view(template_name='page.html', extra_context={
